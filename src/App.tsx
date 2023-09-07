@@ -1,25 +1,29 @@
-import logo from "./logo.svg";
-import "./App.css";
+import LorebookEntry from "./components/LorebookEntry";
+import { Container } from "react-bootstrap";
 
-function App() {
+const App = () => {
+  const newEntryTemplate = {
+    key: [],
+    keysecondary: [],
+    comment: "",
+    content: "",
+    constant: false,
+    selective: true,
+    selectiveLogic: 0,
+    addMemo: false,
+    order: 100,
+    position: 0,
+    disable: false,
+    excludeRecursion: false,
+    probability: 100,
+    useProbability: true,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <LorebookEntry entry={newEntryTemplate} />
+    </Container>
   );
-}
+};
 
 export default App;
