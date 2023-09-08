@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Lorebook",
+  "definitions": {
+    "Lorebook": {
+      "type": "object",
+      "properties": {
+        "entries": {
+          "propertyNames": {
+            "pattern": "^[0-9]+$"
+          },
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntryWithContext"
+          }
+        }
+      },
+      "required": ["entries"],
+      "additionalProperties": true
+    },
+    "EntryWithContext": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "uid": {
+          "type": "number"
+        },
+        "displayIndex": {
+          "type": "number"
+        },
+        "key": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keysecondary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "comment": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "constant": {
+          "type": "boolean"
+        },
+        "selective": {
+          "type": "boolean"
+        },
+        "selectiveLogic": {
+          "type": "number"
+        },
+        "addMemo": {
+          "type": "boolean"
+        },
+        "order": {
+          "type": "number"
+        },
+        "position": {
+          "type": "number"
+        },
+        "disable": {
+          "type": "boolean"
+        },
+        "excludeRecursion": {
+          "type": "boolean"
+        },
+        "probability": {
+          "type": ["number", "null"]
+        },
+        "useProbability": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "addMemo",
+        "comment",
+        "constant",
+        "content",
+        "disable",
+        "displayIndex",
+        "excludeRecursion",
+        "key",
+        "keysecondary",
+        "order",
+        "position",
+        "probability",
+        "selective",
+        "uid",
+        "useProbability"
+      ]
+    }
+  }
+}
