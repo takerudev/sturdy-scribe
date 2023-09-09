@@ -5,8 +5,7 @@ export type LorebookEntryProps = {
 };
 
 const LorebookEntry = (props: LorebookEntryProps) => {
-  const { entry } = props;
-  return <p>{JSON.stringify(entry)}</p>;
+  return <>{JSON.stringify(props.entry)}</>;
 };
 
 export default LorebookEntry;
