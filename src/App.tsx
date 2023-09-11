@@ -1,7 +1,9 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import LorebookPanel from "./components/Lorebook";
+import saveLorebook from "./utils/fileService";
 import { lorebookSchema } from "./utils/schemaHandler";
 import { useCallback, useEffect, useState } from "react";
 import { Entry, Lorebook } from "./types";
@@ -10,11 +12,10 @@ const App = () => {
   const [files, setFiles] = useState<Array<File>>([]);
   const [lorebook, setLorebook] = useState<Lorebook>();
 
-  // === Upload ===
+  // === Upload/Import ===
 
   const handleUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.stopPropagation();
       e.preventDefault();
       e.persist();
       for (const file of e.target.files ?? []) {
@@ -41,6 +42,13 @@ const App = () => {
     if (files.length > 0) updateLorebook(files[0]);
   }, [files, updateLorebook]);
 
+  // === Download/Export ===
+
+  const handleExportClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (lorebook) saveLorebook(lorebook);
+  };
+
   // === Child prop drilling (ministrations) ===
 
   const updateEntry = (newEntry: Entry) => {
@@ -57,6 +65,7 @@ const App = () => {
 
   return (
     <Container>
+      <Button onClick={handleExportClick}>Export Lorebook to File</Button>
       <Row>
         <Form>
           <Form.Group controlId="formFileLg" className="mb-3">
