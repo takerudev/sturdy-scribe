@@ -1,15 +1,22 @@
-import { EntryWithContext } from "../types";
+import { useEffect, useState } from "react";
+import { Entry } from "../types";
 import Form from "react-bootstrap/Form";
 
 export type LorebookEntryProps = {
-  entry: EntryWithContext;
-  updateEntry: (_: EntryWithContext) => void;
+  entry: Entry;
+  updateEntry: (_: Entry) => void;
 };
 
 const LorebookEntry = (props: LorebookEntryProps) => {
   const { entry, updateEntry } = props;
+  const [content, setContent] = useState(entry.content);
 
-  const handleOnChange = (e: React.FocusEvent<HTMLInputElement>) => {
+  useEffect(() => setContent(entry.content), [entry, setContent]);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value);
+
+  const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const newEntry = structuredClone(entry);
     newEntry.content = e.target.value;
     updateEntry(newEntry);
@@ -21,8 +28,9 @@ const LorebookEntry = (props: LorebookEntryProps) => {
         <Form.Label>Content</Form.Label>
         <Form.Control
           as="textarea"
-          defaultValue={entry.content}
-          onBlur={handleOnChange}
+          value={content}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
           rows={10} // TODO: adjust size dynamically, maybe under a toggle
           spellCheck
           wrap="hard"

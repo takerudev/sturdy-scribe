@@ -1,37 +1,32 @@
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
-import { EntryWithContext, Lorebook } from "../types";
+import { Entry, Lorebook } from "../types";
 import LorebookEntry from "./LorebookEntry";
 import { useState } from "react";
 
 export type LorebookPanelProps = {
   lorebook: Lorebook;
-  updateEntry: (_: EntryWithContext) => void;
+  updateEntry: (_: Entry) => void;
 };
 
 const LorebookPanel = (props: LorebookPanelProps) => {
   const { lorebook, updateEntry } = props;
   const [activeKeys, setActiveKeys] = useState<Array<string>>([]);
 
-  const toggleAccordionKey = (newKey: string) => {
-    if (activeKeys.includes(newKey)) {
-      setActiveKeys((keys) => keys.filter((key) => key !== newKey));
-    } else {
-      setActiveKeys((keys) => keys.concat(newKey));
-    }
-  };
+  const toggleAccordionKey = (newKey: string) =>
+    activeKeys.includes(newKey)
+      ? setActiveKeys((keys) => keys.filter((key) => key !== newKey))
+      : setActiveKeys((keys) => keys.concat(newKey));
 
-  const toggleAllKeys = () => {
-    if (activeKeys.length > 0) {
-      setActiveKeys([]);
-    } else {
-      setActiveKeys(
-        Object.values(lorebook.entries).flatMap((entry) =>
-          entry.uid.toString(),
-        ),
-      );
-    }
-  };
+  const toggleAllKeys = () =>
+    activeKeys.length > 0 ? collapseAll() : expandAll();
+
+  const collapseAll = () => setActiveKeys([]);
+
+  const expandAll = () =>
+    setActiveKeys(
+      Object.values(lorebook.entries).flatMap((entry) => entry.uid.toString()),
+    );
 
   return (
     <>

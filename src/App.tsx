@@ -2,9 +2,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import LorebookPanel from "./components/Lorebook";
-import validateLorebook from "./utils/schemaHandler";
+import { lorebookSchema } from "./utils/schemaHandler";
 import { useCallback, useEffect, useState } from "react";
-import { EntryWithContext, Lorebook } from "./types";
+import { Entry, Lorebook } from "./types";
 
 const App = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -28,7 +28,10 @@ const App = () => {
     async (file: File) => {
       console.log("updateLorebook", files);
       const rawLorebook = JSON.parse(await file.text());
-      setLorebook(validateLorebook(rawLorebook));
+      const validated = lorebookSchema.validateSync(rawLorebook, {
+        abortEarly: false,
+      });
+      setLorebook(validated);
     },
     [files],
   );
@@ -40,7 +43,7 @@ const App = () => {
 
   // === Child prop drilling (ministrations) ===
 
-  const updateEntry = (newEntry: EntryWithContext) => {
+  const updateEntry = (newEntry: Entry) => {
     console.log("CHANGING ENTRY", newEntry);
     const targetEntry = lorebook?.entries[newEntry.uid];
     if (targetEntry) {
