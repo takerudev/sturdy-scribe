@@ -78,21 +78,16 @@
         }
       },
       "required": [
-        "addMemo",
         "comment",
         "constant",
         "content",
         "disable",
-        "displayIndex",
-        "excludeRecursion",
         "key",
         "keysecondary",
         "order",
         "position",
-        "probability",
         "selective",
-        "uid",
-        "useProbability"
+        "uid"
       ]
     }
   }
