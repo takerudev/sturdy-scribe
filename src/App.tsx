@@ -1,33 +1,16 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-// import lorebookRaw from "./schemas/lorebook-samples/lorebook-test.json";
 import LorebookPanel from "./components/Lorebook";
 import validateLorebook from "./utils/schemaHandler";
 import { useCallback, useEffect, useState } from "react";
-import { Lorebook } from "./types";
+import { EntryWithContext, Lorebook } from "./types";
 
 const App = () => {
-  // TODO: Use this template for new lorebooks
-  // const newEntryTemplate = {
-  //   key: [],
-  //   keysecondary: [],
-  //   comment: "",
-  //   content: "",
-  //   constant: false,
-  //   selective: true,
-  //   selectiveLogic: 0,
-  //   addMemo: false,
-  //   order: 100,
-  //   position: 0,
-  //   disable: false,
-  //   excludeRecursion: false,
-  //   probability: 100,
-  //   useProbability: true,
-  // };
-
   const [files, setFiles] = useState<Array<File>>([]);
   const [lorebook, setLorebook] = useState<Lorebook>();
+
+  // === Upload ===
 
   const handleUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +38,20 @@ const App = () => {
     if (files.length > 0) updateLorebook(files[0]);
   }, [files, updateLorebook]);
 
+  // === Child prop drilling (ministrations) ===
+
+  const updateEntry = (newEntry: EntryWithContext) => {
+    console.log("CHANGING ENTRY", newEntry);
+    const targetEntry = lorebook?.entries[newEntry.uid];
+    if (targetEntry) {
+      let newLorebook: Lorebook = structuredClone(lorebook);
+      newLorebook.entries[newEntry.uid] = newEntry;
+      setLorebook(newLorebook);
+    }
+  };
+
+  // === Render ===
+
   return (
     <Container>
       <Row>
@@ -65,7 +62,11 @@ const App = () => {
           </Form.Group>
         </Form>
       </Row>
-      <Row>{lorebook && <LorebookPanel lorebook={lorebook} />}</Row>
+      <Row>
+        {lorebook && (
+          <LorebookPanel lorebook={lorebook} updateEntry={updateEntry} />
+        )}
+      </Row>
     </Container>
   );
 };
