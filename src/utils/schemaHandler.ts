@@ -1,6 +1,4 @@
-import Ajv from "ajv";
-import { Lorebook, Position, SelectiveLogic } from "../types";
-import schema from "../schemas/lorebook-schema.json";
+import { Position, SelectiveLogic } from "../types";
 import { object, string, number, array, boolean, lazy } from "yup";
 
 export const entrySchema = object({
@@ -64,17 +62,3 @@ export const lorebookSchema = object({
     ),
   ),
 });
-
-// Deprecated
-const validateLorebook = (lorebook: any): Lorebook | undefined => {
-  const ajv = new Ajv();
-  const validate = ajv.compile(schema);
-  const valid = validate(lorebook);
-  if (valid) {
-    return lorebook as Lorebook;
-  } else {
-    console.error(validate.errors);
-  }
-};
-
-export default validateLorebook;
