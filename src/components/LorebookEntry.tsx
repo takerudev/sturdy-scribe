@@ -10,27 +10,34 @@ export type LorebookEntryProps = {
 const LorebookEntry = (props: LorebookEntryProps) => {
   const { entry, updateEntry } = props;
   const [content, setContent] = useState(entry.content);
+  const [comment, setComment] = useState(entry.comment);
   const [keyPrimary, setKeyPrimary] = useState(entry.key);
   const [keySecondary, setKeySecondary] = useState(entry.keysecondary);
+  const [constant, setConstant] = useState(entry.constant);
 
   useEffect(() => {
     setContent(entry.content);
+    setComment(entry.comment);
     setKeyPrimary(entry.key);
     setKeySecondary(entry.keysecondary);
+    setConstant(entry.constant);
   }, [entry]);
 
   const castByProperty = (
     property: keyof Entry,
-    value: string,
-  ): string | string[] => {
+    value: any,
+  ): string | string[] | boolean => {
     switch (property) {
       case "key":
       case "keysecondary":
-        return value.split(",").map((s) => s.trim());
+        return value.split(",").map((s: string) => s.trim());
       default:
         return value;
     }
   };
+
+  const parseValueFrom = (target: HTMLInputElement) =>
+    target.checked !== undefined ? target.checked : target.value;
 
   /**
    * Function factory for Entry focus event handler.
@@ -43,7 +50,8 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const getEntryMutator =
     (entryToUpdate: Entry, property: keyof Entry) =>
     (e: React.FocusEvent<HTMLInputElement>) => {
-      const newValue = castByProperty(property, e.target.value);
+      const parsedValue = parseValueFrom(e.target);
+      const newValue = castByProperty(property, parsedValue);
       return { ...entryToUpdate, [property]: newValue } as Entry;
     };
 
@@ -59,7 +67,7 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const handleOnChangeWith =
     (setStateAction: React.Dispatch<React.SetStateAction<any>>) =>
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      setStateAction(e.target.value);
+      setStateAction(parseValueFrom(e.target));
 
   return (
     <>
@@ -67,7 +75,8 @@ const LorebookEntry = (props: LorebookEntryProps) => {
         <Form.Group>
           <Form.Label>Primary Keys</Form.Label>
           <Form.Control
-            as="input"
+            as="textarea"
+            rows={1}
             value={keyPrimary}
             onBlur={handleOnBlurFor("key")}
             onChange={handleOnChangeWith(setKeyPrimary)}
@@ -76,7 +85,8 @@ const LorebookEntry = (props: LorebookEntryProps) => {
         <Form.Group>
           <Form.Label>Secondary Keys</Form.Label>
           <Form.Control
-            as="input"
+            as="textarea"
+            rows={1}
             value={keySecondary}
             onBlur={handleOnBlurFor("keysecondary")}
             onChange={handleOnChangeWith(setKeySecondary)}
@@ -93,6 +103,32 @@ const LorebookEntry = (props: LorebookEntryProps) => {
             spellCheck
             wrap="hard"
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Comment</Form.Label>
+          <Form.Control
+            as="textarea"
+            value={comment}
+            onBlur={handleOnBlurFor("comment")}
+            onChange={handleOnChangeWith(setComment)}
+            rows={2}
+            spellCheck
+            wrap="hard"
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Group>
+            <Form.Label>Constant</Form.Label>
+            <Form.Check
+              // as="input"
+              type="switch"
+              checked={constant}
+              // value={constant}
+              onBlur={handleOnBlurFor("constant")}
+              onChange={handleOnChangeWith(setConstant)}
+            />
+          </Form.Group>
         </Form.Group>
       </Form.Group>
       {JSON.stringify(entry)}
