@@ -25,42 +25,42 @@ const LorebookEntry = (props: LorebookEntryProps) => {
     setDisable(entry.disable);
   }, [entry]);
 
+  const propertyTransformers: {
+    [K in keyof Entry]?: (value: string) => string[];
+  } = {
+    key: (value: string) => value.split(",").map((s: string) => s.trim()),
+    keysecondary: (value: string) =>
+      value.split(",").map((s: string) => s.trim()),
+  };
+
+  /**
+   * We need to do this manual type inference because `yup` doesn't infer all properties in a way that works well with TypeScript when using `lazy`.
+   */
   const castByProperty = (
     property: keyof Entry,
     value: any,
   ): string | string[] | boolean => {
-    switch (property) {
-      case "key":
-      case "keysecondary":
-        return value.split(",").map((s: string) => s.trim());
-      default:
-        return value;
-    }
+    const transformFunc = propertyTransformers[property];
+    return transformFunc ? transformFunc(value) : value;
   };
 
   const parseValueFrom = (target: HTMLInputElement) =>
     target.checked !== undefined ? target.checked : target.value;
 
   /**
-   * Function factory for Entry focus event handler.
-   * Because `yup` doesn't infer all properties in a way that works well with TypeScript, we need to do some inference ourself to play nice.
-   *
-   * @param entryToUpdate
-   * @param property
-   * @returns an Entry event handler for mutation operations
+   * Curried function factory to create an entry update handler for a specific property when focus events happen.
    */
-  const getEntryMutator =
-    (entryToUpdate: Entry, property: keyof Entry) =>
-    (e: React.FocusEvent<HTMLInputElement>) => {
+  const getEntryFocusUpdaterFor =
+    (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
       const parsedValue = parseValueFrom(e.target);
       const newValue = castByProperty(property, parsedValue);
-      return { ...entryToUpdate, [property]: newValue } as Entry;
+      return { ...entry, [property]: newValue } as Entry;
     };
 
   const handleOnBlurFor =
     (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
       if (e.target.value !== undefined) {
-        const prepareNewEntry = getEntryMutator(entry, property);
+        const prepareNewEntry = getEntryFocusUpdaterFor(property);
         const newEntry = prepareNewEntry(e);
         updateEntry(newEntry);
       }
