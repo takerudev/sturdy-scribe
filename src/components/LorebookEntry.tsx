@@ -14,6 +14,7 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const [keyPrimary, setKeyPrimary] = useState(entry.key);
   const [keySecondary, setKeySecondary] = useState(entry.keysecondary);
   const [constant, setConstant] = useState(entry.constant);
+  const [disable, setDisable] = useState(entry.disable);
 
   useEffect(() => {
     setContent(entry.content);
@@ -21,6 +22,7 @@ const LorebookEntry = (props: LorebookEntryProps) => {
     setKeyPrimary(entry.key);
     setKeySecondary(entry.keysecondary);
     setConstant(entry.constant);
+    setDisable(entry.disable);
   }, [entry]);
 
   const castByProperty = (
@@ -121,12 +123,19 @@ const LorebookEntry = (props: LorebookEntryProps) => {
           <Form.Group>
             <Form.Label>Constant</Form.Label>
             <Form.Check
-              // as="input"
               type="switch"
               checked={constant}
-              // value={constant}
               onBlur={handleOnBlurFor("constant")}
               onChange={handleOnChangeWith(setConstant)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Disable</Form.Label>
+            <Form.Check
+              type="switch"
+              checked={disable}
+              onBlur={handleOnBlurFor("disable")}
+              onChange={handleOnChangeWith(setDisable)}
             />
           </Form.Group>
         </Form.Group>
