@@ -25,18 +25,20 @@ const LorebookEntry = (props: LorebookEntryProps) => {
     setDisable(entry.disable);
   }, [entry]);
 
+  const propertyToStringArrayTransformer = (value: string) =>
+    value.split(",").map((s: string) => s.trim());
+
   const propertyTransformers: {
     [K in keyof Entry]?: (value: string) => string[];
   } = {
-    key: (value: string) => value.split(",").map((s: string) => s.trim()),
-    keysecondary: (value: string) =>
-      value.split(",").map((s: string) => s.trim()),
+    key: propertyToStringArrayTransformer,
+    keysecondary: propertyToStringArrayTransformer,
   };
 
   /**
    * We need to do this manual type inference because `yup` doesn't infer all properties in a way that works well with TypeScript when using `lazy`.
    */
-  const castByProperty = (
+  const castOrTransformValueByProperty = (
     property: keyof Entry,
     value: any,
   ): string | string[] | boolean => {
@@ -53,13 +55,13 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const getEntryFocusUpdaterFor =
     (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
       const parsedValue = parseValueFrom(e.target);
-      const newValue = castByProperty(property, parsedValue);
+      const newValue = castOrTransformValueByProperty(property, parsedValue);
       return { ...entry, [property]: newValue } as Entry;
     };
 
   const handleOnBlurFor =
     (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
-      if (e.target.value !== undefined) {
+      if (e.target.value !== undefined || e.target.checked !== undefined) {
         const prepareNewEntry = getEntryFocusUpdaterFor(property);
         const newEntry = prepareNewEntry(e);
         updateEntry(newEntry);
