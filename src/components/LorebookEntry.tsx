@@ -30,15 +30,11 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const propertyToStringArrayTransformer = (value: string) =>
     value.split(",").map((s: string) => s.trim());
 
-  const propertyToPercentageTransformer = (value: string | number) =>
-    typeof value !== "number" ? parseInt(value) : value;
-
   const propertyTransformers: {
     [K in keyof Entry]?: (value: string) => EntryAttributeValue;
   } = {
     key: propertyToStringArrayTransformer,
     keysecondary: propertyToStringArrayTransformer,
-    probability: propertyToPercentageTransformer,
   };
 
   /**
