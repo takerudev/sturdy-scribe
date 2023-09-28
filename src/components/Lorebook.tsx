@@ -35,7 +35,7 @@ const LorebookPanel = (props: LorebookPanelProps) => {
       )}
       <Accordion alwaysOpen activeKey={activeKeys}>
         {Object.values(lorebook.entries).flatMap((entry) => (
-          <Accordion.Item eventKey={entry.uid.toString()}>
+          <Accordion.Item eventKey={entry.uid.toString()} key={entry.uid}>
             <Accordion.Header
               onClick={() => toggleAccordionKey(entry.uid.toString())}
             >
