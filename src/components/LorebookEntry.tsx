@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Entry } from "../types";
+import { Entry, EntryAttributeValue } from "../types";
 import Form from "react-bootstrap/Form";
 
 export type LorebookEntryProps = {
@@ -15,6 +15,7 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const [keySecondary, setKeySecondary] = useState(entry.keysecondary);
   const [constant, setConstant] = useState(entry.constant);
   const [disable, setDisable] = useState(entry.disable);
+  const [probability, setProbability] = useState(entry.probability);
 
   useEffect(() => {
     setContent(entry.content);
@@ -23,16 +24,21 @@ const LorebookEntry = (props: LorebookEntryProps) => {
     setKeySecondary(entry.keysecondary);
     setConstant(entry.constant);
     setDisable(entry.disable);
+    setProbability(entry.probability);
   }, [entry]);
 
   const propertyToStringArrayTransformer = (value: string) =>
     value.split(",").map((s: string) => s.trim());
 
+  const propertyToPercentageTransformer = (value: string | number) =>
+    typeof value !== "number" ? parseInt(value) : value;
+
   const propertyTransformers: {
-    [K in keyof Entry]?: (value: string) => string[];
+    [K in keyof Entry]?: (value: string) => EntryAttributeValue;
   } = {
     key: propertyToStringArrayTransformer,
     keysecondary: propertyToStringArrayTransformer,
+    probability: propertyToPercentageTransformer,
   };
 
   /**
@@ -41,14 +47,22 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const castOrTransformValueByProperty = (
     property: keyof Entry,
     value: any,
-  ): string | string[] | boolean => {
+  ): EntryAttributeValue => {
     const transformFunc = propertyTransformers[property];
     return transformFunc ? transformFunc(value) : value;
   };
 
   // N.B. Do not use nullish coalecense here; HTMLInputElement overload boolean `checked` to strings.
-  const parseValueFrom = (target: HTMLInputElement) =>
-    target.checked !== undefined ? target.checked : target.value;
+  const parseValueFrom = (target: HTMLInputElement): EntryAttributeValue => {
+    switch (target.type) {
+      case "switch":
+        return target.checked;
+      case "range":
+        return target.valueAsNumber;
+      default:
+        return target.value;
+    }
+  };
 
   /**
    * Curried function factory to create an entry update handler for a specific property when focus events happen.
@@ -119,6 +133,20 @@ const LorebookEntry = (props: LorebookEntryProps) => {
             rows={2}
             spellCheck
             wrap="hard"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Probability</Form.Label>
+          <Form.Range
+            value={probability}
+            onBlur={handleOnBlurFor("probability")}
+            onChange={handleOnChangeWith(setProbability)}
+          />
+          <Form.Control
+            value={probability}
+            type="number"
+            onBlur={handleOnBlurFor("probability")}
+            onChange={handleOnChangeWith(setProbability)}
           />
         </Form.Group>
 
