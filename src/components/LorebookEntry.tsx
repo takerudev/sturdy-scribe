@@ -46,13 +46,14 @@ const LorebookEntry = (props: LorebookEntryProps) => {
     return transformFunc ? transformFunc(value) : value;
   };
 
+  // N.B. Do not use nullish coalecense here; HTMLInputElement overload boolean `checked` to strings.
   const parseValueFrom = (target: HTMLInputElement) =>
     target.checked !== undefined ? target.checked : target.value;
 
   /**
    * Curried function factory to create an entry update handler for a specific property when focus events happen.
    */
-  const getEntryFocusUpdaterFor =
+  const getEntryFocusHandlerFor =
     (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
       const parsedValue = parseValueFrom(e.target);
       const newValue = castOrTransformValueByProperty(property, parsedValue);
@@ -62,8 +63,8 @@ const LorebookEntry = (props: LorebookEntryProps) => {
   const handleOnBlurFor =
     (property: keyof Entry) => (e: React.FocusEvent<HTMLInputElement>) => {
       if (e.target.value !== undefined || e.target.checked !== undefined) {
-        const prepareNewEntry = getEntryFocusUpdaterFor(property);
-        const newEntry = prepareNewEntry(e);
+        const handleFocus = getEntryFocusHandlerFor(property);
+        const newEntry = handleFocus(e);
         updateEntry(newEntry);
       }
     };

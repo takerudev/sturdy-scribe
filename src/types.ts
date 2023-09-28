@@ -4,6 +4,14 @@ import { entrySchema, lorebookSchema } from "./utils/schemaHandler";
 export type Entry = InferType<typeof entrySchema>;
 export type Lorebook = InferType<typeof lorebookSchema>;
 
+export type EntryAttributeValue =
+  | string
+  | string[]
+  | boolean
+  | number
+  | SelectiveLogic
+  | Position;
+
 export enum SelectiveLogic {
   AND = 0,
   NOT = 1,
