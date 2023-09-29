@@ -8,6 +8,19 @@ export type EntryListProps = {
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
 };
 
+/**
+ * Extract into component if custom title metadata is added later
+ */
+const titleOf = (entry: Entry) => {
+  const joinedKeys = entry.key.join(" | ");
+  const joinedSecondaries = entry.keysecondary.join(" | ");
+  const selectiveLogicString = SelectiveLogic[entry.selectiveLogic];
+  return `${entry.uid} - [ ${joinedKeys} ] --- ${selectiveLogicString} --- [ ${joinedSecondaries} ]`;
+};
+
+/**
+ * List of entries, select one to make it active.
+ */
 const EntryList = (props: EntryListProps) => {
   const { entries, currentEntryId, setCurrentEntryId } = props;
   return (
@@ -20,9 +33,7 @@ const EntryList = (props: EntryListProps) => {
               active={entry.uid === currentEntryId}
               onClick={() => setCurrentEntryId(entry.uid)}
             >
-              {entry.uid} - [ {entry.key.join(" | ")} ] ---{" "}
-              {SelectiveLogic[entry.selectiveLogic]} --- [{" "}
-              {entry.keysecondary.join(" | ")} ]
+              {titleOf(entry)}
             </ListGroup.Item>
           ))}
         </ListGroup>
