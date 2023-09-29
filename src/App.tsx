@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import LorebookPanel from "./components/Lorebook";
+import LorebookEditor from "./components/LorebookEditor";
 import saveLorebook from "./utils/fileService";
 import { lorebookSchema } from "./utils/schemaHandler";
 import { useCallback, useEffect, useState } from "react";
@@ -49,7 +49,7 @@ const App = () => {
     if (lorebook) saveLorebook(lorebook);
   };
 
-  // === Child prop drilling (ministrations) ===
+  // === Child prop drilling (reducer) ===
 
   const updateEntry = (newEntry: Entry) => {
     console.log("CHANGING ENTRY", newEntry);
@@ -64,7 +64,7 @@ const App = () => {
   // === Render ===
 
   return (
-    <Container>
+    <Container fluid>
       <Button onClick={handleExportClick}>Export Lorebook to File</Button>
       <Row>
         <Form>
@@ -76,7 +76,7 @@ const App = () => {
       </Row>
       <Row>
         {lorebook && (
-          <LorebookPanel lorebook={lorebook} updateEntry={updateEntry} />
+          <LorebookEditor lorebook={lorebook} updateEntry={updateEntry} />
         )}
       </Row>
     </Container>
