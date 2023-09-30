@@ -1,46 +1,55 @@
 import { Dispatch, useEffect, useState } from "react";
 import { Entry } from "../models/Entry";
 import { LorebookAction } from "../models/Lorebook";
+import { transformKey } from "../models/utils";
 import Form from "react-bootstrap/esm/Form";
 
 /**
  * --- KeyInputControl ---
+ *
+ * TODO: Extract to independent component when adding key tag system.
  */
 
-// type KeyInputControlProps = {
-//   keyType: Pick<keyof Entry, ""
-//   entry: Entry;
-//   setLocalEntry: Dispatch<React.SetStateAction<Entry>>;
-//   dispatch: Dispatch<LorebookAction>;
-// }
+type KeyInputControlProps = {
+  keyType: keyof Pick<Entry, "key" | "keysecondary">;
+  entry: Entry;
+  setEntry: Dispatch<React.SetStateAction<Entry>>;
+  dispatch: Dispatch<LorebookAction>;
+};
 
-// const KeyInputControl = (props: KeyInputControlProps) => (
-//   <Form.Group>
-//     <Form.Label>Secondary Keys</Form.Label>
-//     <Form.Control
-//       as="textarea"
-//       rows={1}
-//       value={props.entry.keysecondary}
-//       onChange={(e) =>
-//         props.setLocalEntry({
-//           ...props.entry,
-//           keysecondary: transformKey(e.target.value),
-//         })
-//       }
-//       onBlur={(e) => {
-//         dispatch({
-//           type: "updateEntry",
-//           uid: props.entry.uid,
-//           property: "keysecondary",
-//           value: transformKey(e.target.value),
-//         })
-//       }}
-//     />
-//   </Form.Group>
-// );
+const KeyInputControl = (props: KeyInputControlProps) => {
+  const { keyType, entry, setEntry, dispatch } = props;
+  return (
+    <Form.Group>
+      <Form.Label>{keyType === "key" ? "Key" : "Secondary Key"}</Form.Label>
+      <Form.Control
+        as="textarea"
+        rows={1}
+        value={entry[keyType]}
+        onChange={(e) =>
+          setEntry({
+            ...entry,
+            [keyType]: transformKey(e.target.value),
+          })
+        }
+        onBlur={(e) =>
+          dispatch({
+            type: "updateEntry",
+            uid: entry.uid,
+            property: keyType,
+            value: transformKey(e.target.value),
+          })
+        }
+      />
+    </Form.Group>
+  );
+};
 
 /**
  * --- EntryEditor ---
+ *
+ * Primary editor panel for entry content.
+ * TODO: Break down to multiple components when introducing `@monaco-editor/react`.
  */
 
 export type EntryEditorProps = {
@@ -48,68 +57,31 @@ export type EntryEditorProps = {
   dispatch: Dispatch<LorebookAction>;
 };
 
-const transformKey = (raw: string): string[] =>
-  raw.split(",").map((s: string) => s.trim());
-
 const EntryEditor = (props: EntryEditorProps) => {
   const { entry, dispatch } = props;
   const [localEntry, setLocalEntry] = useState<Entry>(entry);
 
-  /**
-   * Update local entry when source entry updates
-   */
+  // Update local entry when source entry updates
   useEffect(() => {
     setLocalEntry(entry);
   }, [entry]);
 
   return (
     <>
-      <Form.Group>
-        <Form.Group>
-          <Form.Label>Primary Keys</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={1}
-            value={localEntry.key}
-            onChange={(e) =>
-              setLocalEntry({
-                ...localEntry,
-                keysecondary: transformKey(e.target.value),
-              })
-            }
-            onBlur={(e) =>
-              dispatch({
-                type: "updateEntry",
-                uid: localEntry.uid,
-                property: "key",
-                value: transformKey(e.target.value),
-              })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Secondary Keys</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={1}
-            value={localEntry.keysecondary}
-            onChange={(e) =>
-              setLocalEntry({
-                ...localEntry,
-                keysecondary: transformKey(e.target.value),
-              })
-            }
-            onBlur={(e) => {
-              dispatch({
-                type: "updateEntry",
-                uid: localEntry.uid,
-                property: "keysecondary",
-                value: transformKey(e.target.value),
-              });
-            }}
-          />
-        </Form.Group>
-        {/* <Form.Group>
+      <KeyInputControl
+        keyType="key"
+        entry={localEntry}
+        setEntry={setLocalEntry}
+        dispatch={dispatch}
+      />
+      <KeyInputControl
+        keyType="keysecondary"
+        entry={localEntry}
+        setEntry={setLocalEntry}
+        dispatch={dispatch}
+      />
+
+      {/* <Form.Group>
           <Form.Label>Content</Form.Label>
           <Form.Control
             as="textarea"
@@ -168,7 +140,7 @@ const EntryEditor = (props: EntryEditorProps) => {
             />
           </Form.Group>
         </Form.Group> */}
-      </Form.Group>
+      {/* </Form.Group> */}
       {JSON.stringify(entry)}
     </>
   );

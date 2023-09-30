@@ -1,5 +1,5 @@
 import { InferType } from "yup";
-import { entrySchema } from "../utils/schemaHandler";
+import { entrySchema } from "../services/schemaService";
 
 export type Entry = InferType<typeof entrySchema>;
 

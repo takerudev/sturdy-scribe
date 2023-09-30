@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import EntryList from "./EntryList";
 import EntryEditor from "./EntryEditor";
 import { Lorebook, entriesOf, lorebookReducer } from "../models/Lorebook";
-import { lorebookSchema } from "../utils/schemaHandler";
+import { lorebookSchema } from "../services/schemaService";
 import { Entry } from "../models/Entry";
 
 export type LorebookEditorProps = {

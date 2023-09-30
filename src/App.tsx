@@ -3,8 +3,8 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import LorebookEditor from "./components/LorebookEditor";
-import saveLorebook from "./utils/fileService";
-import { lorebookSchema } from "./utils/schemaHandler";
+import saveLorebook from "./services/fileService";
+import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
 

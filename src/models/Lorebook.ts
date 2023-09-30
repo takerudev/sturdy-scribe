@@ -1,6 +1,6 @@
 import { InferType } from "yup";
 import { Entry, EntryAttributeValue } from "./Entry";
-import { lorebookSchema } from "../utils/schemaHandler";
+import { lorebookSchema } from "../services/schemaService";
 
 export type Lorebook = InferType<typeof lorebookSchema>;
 
