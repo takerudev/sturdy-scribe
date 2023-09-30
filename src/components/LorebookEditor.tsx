@@ -2,7 +2,8 @@ import { useEffect, useReducer, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import EntryList from "./EntryList";
-import EntryEditor from "./EntryEditor";
+import EntryContentEditor from "./EntryContentEditor";
+import EntrySettingsEditor from "./EntrySettingsEditor";
 import { Lorebook, entriesOf, lorebookReducer } from "../models/Lorebook";
 import { lorebookSchema } from "../services/schemaService";
 import { Entry } from "../models/Entry";
@@ -51,10 +52,14 @@ const LorebookEditor = (props: LorebookEditorProps) => {
         </Col>
         <Col xs={6}>
           {currentEntry && (
-            <EntryEditor entry={currentEntry} dispatch={dispatch} />
+            <EntryContentEditor entry={currentEntry} dispatch={dispatch} />
           )}
         </Col>
-        <Col xs={4}>bababooey</Col>
+        <Col xs={4}>
+          {currentEntry && (
+            <EntrySettingsEditor entry={currentEntry} dispatch={dispatch} />
+          )}
+        </Col>
       </Row>
     </>
   );
