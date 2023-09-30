@@ -1,27 +1,27 @@
 import { Dispatch } from "react";
 import { Form } from "react-bootstrap";
-import { Entry } from "../models/Entry";
-import { LorebookAction } from "../models/Lorebook";
-import { transformKey } from "../models/utils";
+import { Entry } from "../../models/Entry";
+import { LorebookAction } from "../../models/Lorebook";
+import { transformKey } from "../../models/utils";
 
 /**
- * --- KeyInputControl ---
+ * --- InputKeyControl ---
  *
  * TODO: Add key tag handling system
  */
 
-export type KeyInputControlProps = {
+export type InputKeyControlProps = {
   keyType: keyof Pick<Entry, "key" | "keysecondary">;
   entry: Entry;
   setEntry: Dispatch<React.SetStateAction<Entry>>;
   dispatch: Dispatch<LorebookAction>;
 };
 
-const KeyInputControl = (props: KeyInputControlProps) => {
+const InputKeyControl = (props: InputKeyControlProps) => {
   const { keyType, entry, setEntry, dispatch } = props;
   return (
     <Form.Group>
-      <Form.Label>{keyType === "key" ? "Key" : "Secondary Key"}</Form.Label>
+      <Form.Label>{keyType === "key" ? "Keys" : "Secondary Keys"}</Form.Label>
       <Form.Control
         as="textarea"
         rows={1}
@@ -45,4 +45,4 @@ const KeyInputControl = (props: KeyInputControlProps) => {
   );
 };
 
-export default KeyInputControl;
+export default InputKeyControl;

@@ -1,91 +1,85 @@
-import { Dispatch } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { Entry } from "../models/Entry";
 import { LorebookAction } from "../models/Lorebook";
+import Form from "react-bootstrap/Form";
 
 /**
- * --- EntryEditor ---
+ * --- EntryContentEditor ---
  *
  * Primary editor panel for entry content and comments.
+ * TODO: Adjust vertical line count dynamically, maybe under a clientside toggle.
  */
 
 export type EntryContentEditorProps = {
-  entry: Entry;
+  sourceEntry: Entry;
   dispatch: Dispatch<LorebookAction>;
 };
 
 const EntryContentEditor = (props: EntryContentEditorProps) => {
-  const { entry } = props;
-  // const [localEntry, setLocalEntry] = useState<Entry>(entry);
+  const { sourceEntry, dispatch } = props;
+  const [localEntry, setLocalEntry] = useState<Entry>(sourceEntry);
 
-  // // Update local entry when source entry updates
-  // useEffect(() => {
-  //   setLocalEntry(entry);
-  // }, [entry]);
+  // Update local entry when source entry updates, this is the reload boundary for children.
+  useEffect(() => {
+    setLocalEntry(sourceEntry);
+  }, [sourceEntry]);
 
   return (
     <>
-      {/* <Form.Group>
-        <Form.Label>Content</Form.Label>
-        <Form.Control
-          as="textarea"
-          value={content}
-          onBlur={handleOnBlurFor("content")}
-          onChange={handleOnChangeWith(setContent)}
-          rows={10} // TODO: adjust size dynamically, maybe under a toggle
-          spellCheck
-          wrap="hard"
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Comment</Form.Label>
-        <Form.Control
-          as="textarea"
-          value={comment}
-          onBlur={handleOnBlurFor("comment")}
-          onChange={handleOnChangeWith(setComment)}
-          rows={2}
-          spellCheck
-          wrap="hard"
-        />
-      </Form.Group> */}
-
-      {/* <Form.Group>
-          <Form.Label>Probability</Form.Label>
-          <Form.Range
-            value={probability}
-            onBlur={handleOnBlurFor("probability")}
-            onChange={handleOnChangeWith(setProbability)}
-          />
-          <Form.Control
-            value={probability}
-            type="number"
-            onBlur={handleOnBlurFor("probability")}
-            onChange={handleOnChangeWith(setProbability)}
-          />
-        </Form.Group>
-
-        <Form.Group>
+      {localEntry && (
+        <>
           <Form.Group>
-            <Form.Label>Constant</Form.Label>
-            <Form.Check
-              type="switch"
-              checked={constant}
-              onBlur={handleOnBlurFor("constant")}
-              onChange={handleOnChangeWith(setConstant)}
+            <Form.Label>Content</Form.Label>
+            <Form.Control
+              as="textarea"
+              value={localEntry.content}
+              onChange={(e) =>
+                setLocalEntry({
+                  ...localEntry,
+                  content: e.target.value,
+                })
+              }
+              onBlur={(e) =>
+                dispatch({
+                  type: "updateEntry",
+                  uid: localEntry.uid,
+                  property: "content",
+                  value: e.target.value,
+                })
+              }
+              rows={10}
+              spellCheck
+              wrap="hard"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Disable</Form.Label>
-            <Form.Check
-              type="switch"
-              checked={disable}
-              onBlur={handleOnBlurFor("disable")}
-              onChange={handleOnChangeWith(setDisable)}
+            <Form.Label>Comment</Form.Label>
+            <Form.Control
+              as="textarea"
+              value={localEntry.comment}
+              onChange={(e) =>
+                setLocalEntry({
+                  ...localEntry,
+                  comment: e.target.value,
+                })
+              }
+              onBlur={(e) =>
+                dispatch({
+                  type: "updateEntry",
+                  uid: localEntry.uid,
+                  property: "comment",
+                  value: e.target.value,
+                })
+              }
+              rows={2}
+              spellCheck
+              wrap="hard"
             />
           </Form.Group>
-        </Form.Group> */}
-      {/* </Form.Group> */}
-      {JSON.stringify(entry)}
+        </>
+      )}
+
+      <>{JSON.stringify(sourceEntry)}</>
     </>
   );
 };

@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import EntryList from "./EntryList";
 import EntryContentEditor from "./EntryContentEditor";
-import EntrySettingsEditor from "./EntrySettingsEditor";
+import EntrySettingsEditor from "./entry-settings/EntrySettingsEditor";
 import { Lorebook, entriesOf, lorebookReducer } from "../models/Lorebook";
 import { lorebookSchema } from "../services/schemaService";
 import { Entry } from "../models/Entry";
@@ -52,7 +52,10 @@ const LorebookEditor = (props: LorebookEditorProps) => {
         </Col>
         <Col xs={6}>
           {currentEntry && (
-            <EntryContentEditor entry={currentEntry} dispatch={dispatch} />
+            <EntryContentEditor
+              sourceEntry={currentEntry}
+              dispatch={dispatch}
+            />
           )}
         </Col>
         <Col xs={4}>
