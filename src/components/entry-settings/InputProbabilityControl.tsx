@@ -14,6 +14,9 @@ export type InputProbabilityControlProps = {
   dispatch: Dispatch<LorebookAction>;
 };
 
+const constrainProbabilityInput = (probability: number): number =>
+  probability >= 100 ? 100 : probability <= 0 ? 0 : probability;
+
 const InputProbabilityControl = (props: InputProbabilityControlProps) => {
   const { entry, dispatch } = props;
   return (
@@ -26,7 +29,7 @@ const InputProbabilityControl = (props: InputProbabilityControlProps) => {
             type: "updateEntry",
             uid: entry.uid,
             property: "probability",
-            value: e.target.valueAsNumber,
+            value: constrainProbabilityInput(e.target.valueAsNumber),
           })
         }
       />
@@ -38,7 +41,7 @@ const InputProbabilityControl = (props: InputProbabilityControlProps) => {
             type: "updateEntry",
             uid: entry.uid,
             property: "probability",
-            value: +e.target.value,
+            value: constrainProbabilityInput(+e.target.value),
           })
         }
       />
