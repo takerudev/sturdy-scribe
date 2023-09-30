@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
-import { Form } from "react-bootstrap";
 import { Entry } from "../../models/Entry";
 import { LorebookAction } from "../../models/Lorebook";
+import Form from "react-bootstrap/Form";
 
 /**
  * --- InputProbabilityControl ---

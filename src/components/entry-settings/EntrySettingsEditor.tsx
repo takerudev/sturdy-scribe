@@ -4,11 +4,14 @@ import { LorebookAction } from "../../models/Lorebook";
 import InputKeyControl from "./InputKeyControl";
 import InputBooleanControlGroup from "./InputBooleanControlGroup";
 import InputProbabilityControl from "./InputProbabilityControl";
+import InputInsertionControl from "./InputInsertionControl";
+import InputSelectiveLogicControl from "./InputSelectiveLogicControl";
 
 /**
  * --- EntrySettingsEditor ---
  *
  * Editor panel for entry meta settings.
+ * TODO: Extract entry/dispatch into provider hook.
  */
 
 export type EntrySettingsEditorProps = {
@@ -33,12 +36,14 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
         setEntry={setLocalEntry}
         dispatch={dispatch}
       />
+      <InputSelectiveLogicControl entry={localEntry} dispatch={dispatch} />
       <InputKeyControl
         keyType="keysecondary"
         entry={localEntry}
         setEntry={setLocalEntry}
         dispatch={dispatch}
       />
+      <InputInsertionControl entry={localEntry} dispatch={dispatch} />
       <InputBooleanControlGroup entry={localEntry} dispatch={dispatch} />
       <InputProbabilityControl entry={localEntry} dispatch={dispatch} />
     </>

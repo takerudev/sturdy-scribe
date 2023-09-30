@@ -1,12 +1,13 @@
 import { Dispatch } from "react";
-import { Form } from "react-bootstrap";
 import { Entry } from "../../models/Entry";
 import { LorebookAction } from "../../models/Lorebook";
+import Form from "react-bootstrap/Form";
 
 /**
- * --- InputBooleanControl ---
+ * --- InputBooleanControlGroup ---
  *
  * Contains the few configurable boolean values for entry settings.
+ * Consider breaking into reusable component if complexity blows out. It's fine for now.
  */
 
 export type InputBooleanControlGroupProps = {
@@ -43,6 +44,21 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
               type: "updateEntry",
               uid: entry.uid,
               property: "disable",
+              value: e.target.checked,
+            })
+          }
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Recursion</Form.Label>
+        <Form.Check
+          type="switch"
+          checked={entry.excludeRecursion}
+          onChange={(e) =>
+            dispatch({
+              type: "updateEntry",
+              uid: entry.uid,
+              property: "excludeRecursion",
               value: e.target.checked,
             })
           }

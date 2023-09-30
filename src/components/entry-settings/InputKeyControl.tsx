@@ -1,8 +1,8 @@
 import { Dispatch } from "react";
-import { Form } from "react-bootstrap";
 import { Entry } from "../../models/Entry";
 import { LorebookAction } from "../../models/Lorebook";
 import { transformKey } from "../../models/utils";
+import Form from "react-bootstrap/Form";
 
 /**
  * --- InputKeyControl ---
@@ -19,9 +19,11 @@ export type InputKeyControlProps = {
 
 const InputKeyControl = (props: InputKeyControlProps) => {
   const { keyType, entry, setEntry, dispatch } = props;
+  const label = keyType === "key" ? "Keys" : "Secondary Keys";
+
   return (
     <Form.Group>
-      <Form.Label>{keyType === "key" ? "Keys" : "Secondary Keys"}</Form.Label>
+      <Form.Label>{label}</Form.Label>
       <Form.Control
         as="textarea"
         rows={1}
