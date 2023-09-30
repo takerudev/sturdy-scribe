@@ -1,5 +1,5 @@
-import { Position, SelectiveLogic } from "../types";
 import { object, string, number, array, boolean, lazy } from "yup";
+import { SelectiveLogic, Position } from "../models/Entry";
 
 export const entrySchema = object({
   // indices

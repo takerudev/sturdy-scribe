@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Entry, EntryAttributeValue } from "../types";
 import Form from "react-bootstrap/Form";
+import { Entry, EntryAttributeValue } from "../models/Entry";
 
 export type LorebookEntryProps = {
   entry: Entry;

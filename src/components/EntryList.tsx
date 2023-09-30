@@ -1,6 +1,6 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import { Entry, SelectiveLogic } from "../types";
 import { Dispatch, SetStateAction } from "react";
+import { Entry, SelectiveLogic } from "../models/Entry";
 
 export type EntryListProps = {
   entries: Entry[];
@@ -9,7 +9,7 @@ export type EntryListProps = {
 };
 
 /**
- * Extract into component if custom title metadata is added later
+ * Extract into component if custom title metadata is added later.
  */
 const titleOf = (entry: Entry) => {
   const joinedKeys = entry.key.join(" | ");

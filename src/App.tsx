@@ -6,7 +6,7 @@ import LorebookEditor from "./components/LorebookEditor";
 import saveLorebook from "./utils/fileService";
 import { lorebookSchema } from "./utils/schemaHandler";
 import { useCallback, useEffect, useState } from "react";
-import { Entry, Lorebook } from "./types";
+import { Lorebook } from "./models/Lorebook";
 
 const App = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -49,18 +49,6 @@ const App = () => {
     if (lorebook) saveLorebook(lorebook);
   };
 
-  // === Child prop drilling (reducer) ===
-
-  const updateEntry = (newEntry: Entry) => {
-    console.log("CHANGING ENTRY", newEntry);
-    const targetEntry = lorebook?.entries[newEntry.uid];
-    if (targetEntry) {
-      let newLorebook: Lorebook = structuredClone(lorebook);
-      newLorebook.entries[newEntry.uid] = newEntry;
-      setLorebook(newLorebook);
-    }
-  };
-
   // === Render ===
 
   return (
@@ -74,11 +62,7 @@ const App = () => {
           </Form.Group>
         </Form>
       </Row>
-      <Row>
-        {lorebook && (
-          <LorebookEditor lorebook={lorebook} updateEntry={updateEntry} />
-        )}
-      </Row>
+      <Row>{lorebook && <LorebookEditor sourceLorebook={lorebook} />}</Row>
     </Container>
   );
 };

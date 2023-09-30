@@ -1,5 +1,5 @@
 import { saveAs } from "file-saver";
-import { Lorebook } from "../types";
+import { Lorebook } from "../models/Lorebook";
 
 const saveLorebook = (lorebook: Lorebook) => {
   console.log("SAVING LOREBOOK", lorebook);
