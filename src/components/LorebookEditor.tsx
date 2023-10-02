@@ -48,6 +48,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
             entries={entriesOf(lorebook)}
             setCurrentEntryId={setCurrentEntryId}
             currentEntryId={currentEntryId}
+            dispatch={dispatch}
           />
         </Col>
         <Col xs={6}>

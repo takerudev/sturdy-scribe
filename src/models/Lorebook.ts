@@ -1,10 +1,13 @@
 import { InferType } from "yup";
 import { Entry, EntryAttributeValue } from "./Entry";
-import { lorebookSchema } from "../services/schemaService";
+import { entrySchema, lorebookSchema } from "../services/schemaService";
 
 export type Lorebook = InferType<typeof lorebookSchema>;
 
-export type LorebookAction = UpdateEntryAction | SetLorebookAction;
+export type LorebookAction =
+  | UpdateEntryAction
+  | NewEntryAction
+  | SetLorebookAction;
 
 export type UpdateEntryAction = {
   type: "updateEntry";
@@ -13,11 +16,18 @@ export type UpdateEntryAction = {
   value: EntryAttributeValue;
 };
 
+export type NewEntryAction = {
+  type: "newEntry";
+};
+
 export type SetLorebookAction = {
   type: "setLorebook";
   lorebook: Lorebook;
 };
 
+/**
+ * TODO: Add unit tests
+ */
 export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
   switch (action.type) {
     case "updateEntry":
@@ -32,6 +42,20 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
         },
       };
 
+    case "newEntry":
+      const newUid = maxUid(state) + 1;
+      const rawEntry: Partial<Entry> = {
+        uid: newUid,
+        displayIndex: newUid,
+      };
+      return {
+        ...state,
+        entries: {
+          ...state.entries,
+          [newUid]: entrySchema.cast(rawEntry),
+        },
+      };
+
     case "setLorebook":
       return { ...action.lorebook };
 
@@ -42,3 +66,8 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
 
 export const entriesOf = (lorebook: Lorebook): Entry[] =>
   Object.values(lorebook.entries);
+
+export const maxUid = (lorebook: Lorebook): number =>
+  entriesOf(lorebook).reduce((max: Entry, cur: Entry) => {
+    return max.uid < cur.uid ? cur : max;
+  }).uid;
