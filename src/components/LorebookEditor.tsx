@@ -38,6 +38,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
    */
   useEffect(() => {
     dispatch({ type: "setLorebook", lorebook: sourceLorebook });
+    setCurrentEntryId(-1);
   }, [sourceLorebook]);
 
   return (
@@ -45,7 +46,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
       <Row>
         <Col xs={2}>
           <EntryList
-            entries={entriesOf(lorebook)}
+            lorebook={lorebook}
             setCurrentEntryId={setCurrentEntryId}
             currentEntryId={currentEntryId}
             dispatch={dispatch}

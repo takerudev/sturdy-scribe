@@ -2,10 +2,15 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import { Dispatch, SetStateAction } from "react";
 import { Entry, SelectiveLogic } from "../models/Entry";
-import { LorebookAction } from "../models/Lorebook";
+import {
+  Lorebook,
+  LorebookAction,
+  entriesOf,
+  maxUid,
+} from "../models/Lorebook";
 
 export type EntryListProps = {
-  entries: Entry[];
+  lorebook: Lorebook;
   currentEntryId: number;
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
   dispatch: Dispatch<LorebookAction>;
@@ -25,17 +30,21 @@ const titleOf = (entry: Entry) => {
  * List of entries, select one to make it active.
  */
 const EntryList = (props: EntryListProps) => {
-  const { entries, currentEntryId, setCurrentEntryId, dispatch } = props;
+  const { lorebook, currentEntryId, setCurrentEntryId, dispatch } = props;
+  const entries = entriesOf(lorebook);
 
   return (
     <>
       {entries && (
         <Button
-          onClick={() =>
+          onClick={() => {
+            const newUid = maxUid(lorebook) + 1;
             dispatch({
               type: "newEntry",
-            })
-          }
+              uid: newUid,
+            });
+            setCurrentEntryId(newUid);
+          }}
         >
           Add
         </Button>

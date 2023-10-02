@@ -18,6 +18,7 @@ export type UpdateEntryAction = {
 
 export type NewEntryAction = {
   type: "newEntry";
+  uid: number;
 };
 
 export type SetLorebookAction = {
@@ -43,7 +44,7 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
       };
 
     case "newEntry":
-      const newUid = maxUid(state) + 1;
+      const newUid = action.uid;
       const rawEntry: Partial<Entry> = {
         uid: newUid,
         displayIndex: newUid,
