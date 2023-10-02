@@ -58,6 +58,16 @@ const EntryList = (props: EntryListProps) => {
               onClick={() => setCurrentEntryId(entry.uid)}
             >
               {titleOf(entry)}
+              <Button
+                onClick={() =>
+                  dispatch({
+                    type: "deleteEntry",
+                    uid: entry.uid,
+                  })
+                }
+              >
+                Delete
+              </Button>
             </ListGroup.Item>
           ))}
         </ListGroup>

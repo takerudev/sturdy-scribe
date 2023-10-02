@@ -7,6 +7,7 @@ export type Lorebook = InferType<typeof lorebookSchema>;
 export type LorebookAction =
   | UpdateEntryAction
   | NewEntryAction
+  | DeleteEntryAction
   | SetLorebookAction;
 
 export type UpdateEntryAction = {
@@ -18,6 +19,11 @@ export type UpdateEntryAction = {
 
 export type NewEntryAction = {
   type: "newEntry";
+  uid: number;
+};
+
+export type DeleteEntryAction = {
+  type: "deleteEntry";
   uid: number;
 };
 
@@ -55,6 +61,14 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
           ...state.entries,
           [newUid]: entrySchema.cast(rawEntry),
         },
+      };
+
+    case "deleteEntry":
+      let newEntries = { ...state.entries };
+      delete newEntries[action.uid];
+      return {
+        ...state,
+        entries: newEntries,
       };
 
     case "setLorebook":
