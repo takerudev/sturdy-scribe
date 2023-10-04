@@ -1,9 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import LorebookEditor from "./components/LorebookEditor";
-import saveLorebook from "./services/fileService";
 import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
@@ -42,18 +40,10 @@ const App = () => {
     if (files.length > 0) updateLorebook(files[0]);
   }, [files, updateLorebook]);
 
-  // === Download/Export ===
-
-  const handleExportClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (lorebook) saveLorebook(lorebook);
-  };
-
   // === Render ===
 
   return (
     <Container fluid>
-      <Button onClick={handleExportClick}>Export Lorebook to File</Button>
       <Row>
         <Form>
           <Form.Group controlId="formFileLg" className="mb-3">

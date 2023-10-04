@@ -10,6 +10,7 @@ import {
   entriesOf,
   maxUid,
 } from "../models/Lorebook";
+import SaveLorebookButton from "./SaveLorebookButton";
 
 export type EntryListProps = {
   lorebook: Lorebook;
@@ -37,6 +38,7 @@ const EntryList = (props: EntryListProps) => {
 
   return (
     <>
+      {entries && <SaveLorebookButton lorebook={lorebook} />}
       {entries && (
         <Button
           onClick={() => {
