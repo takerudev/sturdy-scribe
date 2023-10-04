@@ -1,5 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import CloseButton from "react-bootstrap/CloseButton";
+import Badge from "react-bootstrap/Badge";
 import { Dispatch, SetStateAction } from "react";
 import { Entry, SelectiveLogic } from "../models/Entry";
 import {
@@ -23,7 +25,7 @@ const titleOf = (entry: Entry) => {
   const joinedKeys = entry.key.join(" | ");
   const joinedSecondaries = entry.keysecondary.join(" | ");
   const selectiveLogicString = SelectiveLogic[entry.selectiveLogic];
-  return `${entry.uid} - [ ${joinedKeys} ] --- ${selectiveLogicString} --- [ ${joinedSecondaries} ]`;
+  return `[ ${joinedKeys} ] --- ${selectiveLogicString} --- [ ${joinedSecondaries} ]`;
 };
 
 /**
@@ -57,17 +59,22 @@ const EntryList = (props: EntryListProps) => {
               active={entry.uid === currentEntryId}
               onClick={() => setCurrentEntryId(entry.uid)}
             >
+              {entry.uid === currentEntryId && (
+                <CloseButton
+                  className="float-end"
+                  onClick={() =>
+                    dispatch({
+                      type: "deleteEntry",
+                      uid: entry.uid,
+                    })
+                  }
+                />
+              )}
+              <Badge bg="secondary">
+                <b>{entry.uid}</b>
+              </Badge>
+              <br />
               {titleOf(entry)}
-              <Button
-                onClick={() =>
-                  dispatch({
-                    type: "deleteEntry",
-                    uid: entry.uid,
-                  })
-                }
-              >
-                Delete
-              </Button>
             </ListGroup.Item>
           ))}
         </ListGroup>
