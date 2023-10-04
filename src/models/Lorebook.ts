@@ -53,7 +53,6 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
       const newUid = action.uid;
       const rawEntry: Partial<Entry> = {
         uid: newUid,
-        displayIndex: newUid,
       };
       return {
         ...state,
@@ -82,7 +81,15 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
 export const entriesOf = (lorebook: Lorebook): Entry[] =>
   Object.values(lorebook.entries);
 
-export const maxUid = (lorebook: Lorebook): number =>
-  entriesOf(lorebook).reduce((max: Entry, cur: Entry) => {
-    return max.uid < cur.uid ? cur : max;
-  }).uid;
+/**
+ * @param {Lorebook} lorebook
+ * @returns {number} maximum uid of entries in a lorebook, -1 if empty
+ */
+export const maxUid = (lorebook: Lorebook): number => {
+  const entries = entriesOf(lorebook);
+  return entries.length > 0
+    ? entries.reduce((max: Entry, cur: Entry) =>
+        max.uid < cur.uid ? cur : max,
+      ).uid
+    : -1;
+};

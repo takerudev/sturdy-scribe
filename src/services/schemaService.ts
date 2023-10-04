@@ -4,7 +4,6 @@ import { SelectiveLogic, Position } from "../models/Entry";
 export const entrySchema = object({
   // indices
   uid: number().required(),
-  displayIndex: number().required(),
 
   // activation keys
   key: array()
@@ -52,7 +51,7 @@ export const entrySchema = object({
   useProbability: boolean()
     .default(() => true)
     .required(),
-}).required();
+});
 
 // `yup` doesn't have a mapping schema type. This is a workaround utilising lazy validation. Lacks uniqueness checks.
 export const lorebookSchema = object({
