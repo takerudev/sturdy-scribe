@@ -57,6 +57,10 @@
     "lint-staged": "^14.0.1",
     "prettier": "3.0.3"
   },
+  "resolutions": {
+    "postcss": "^8.4.31",
+    "nth-check": "^2.0.1"
+  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   }
