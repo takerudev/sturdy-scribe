@@ -24,6 +24,7 @@ const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
       <InputGroup>
         {[SelectiveLogic.AND, SelectiveLogic.NOT].flatMap((logic) => (
           <Button
+            key={logic}
             onClick={() =>
               dispatch({
                 type: "updateEntry",
