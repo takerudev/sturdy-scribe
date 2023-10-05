@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sturdy-scribe/static/css/main.6ccd65a8.css",
+    "main.js": "/sturdy-scribe/static/js/main.d570d1d2.js",
+    "static/js/787.f8178f72.chunk.js": "/sturdy-scribe/static/js/787.f8178f72.chunk.js",
+    "index.html": "/sturdy-scribe/index.html",
+    "main.6ccd65a8.css.map": "/sturdy-scribe/static/css/main.6ccd65a8.css.map",
+    "main.d570d1d2.js.map": "/sturdy-scribe/static/js/main.d570d1d2.js.map",
+    "787.f8178f72.chunk.js.map": "/sturdy-scribe/static/js/787.f8178f72.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ccd65a8.css",
+    "static/js/main.d570d1d2.js"
+  ]
+}
