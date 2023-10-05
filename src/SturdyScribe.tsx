@@ -6,6 +6,7 @@ import LorebookEditor from "./components/LorebookEditor";
 import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
+import { FaBookAtlas } from "react-icons/fa6";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -47,13 +48,14 @@ const SturdyScribe = () => {
       <Col>
         <hr />
         <Row>
-          <h1>SturdyScribe (early version)</h1>
+          <h1>
+            <FaBookAtlas /> SturdyScribe (early preview)
+          </h1>
         </Row>
         <hr />
         <Row>
           <Form>
             <Form.Group controlId="formFileLg" className="mb-3">
-              <Form.Label>Upload lorebook</Form.Label>
               <Form.Control type="file" size="lg" onChange={handleUpload} />
             </Form.Group>
           </Form>

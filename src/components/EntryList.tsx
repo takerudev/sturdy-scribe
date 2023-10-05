@@ -1,16 +1,11 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
-import CloseButton from "react-bootstrap/CloseButton";
 import Badge from "react-bootstrap/Badge";
 import { Dispatch, SetStateAction } from "react";
 import { Entry, SelectiveLogic } from "../models/Entry";
-import {
-  Lorebook,
-  LorebookAction,
-  entriesOf,
-  maxUid,
-} from "../models/Lorebook";
-import SaveLorebookButton from "./SaveLorebookButton";
+import { Lorebook, LorebookAction, entriesOf } from "../models/Lorebook";
+import ExportLorebookButton from "./buttons/ExportLorebookButton";
+import AddEntryButton from "./buttons/AddEntryButton";
+import DeleteEntryButton from "./buttons/DeleteEntryButton";
 
 export type EntryListProps = {
   lorebook: Lorebook;
@@ -37,51 +32,40 @@ const EntryList = (props: EntryListProps) => {
   const entries = entriesOf(lorebook);
 
   return (
-    <>
-      {entries && <SaveLorebookButton lorebook={lorebook} />}
-      {entries && (
-        <Button
-          onClick={() => {
-            const newUid = maxUid(lorebook) + 1;
-            dispatch({
-              type: "newEntry",
-              uid: newUid,
-            });
-            setCurrentEntryId(newUid);
-          }}
-        >
-          Add
-        </Button>
-      )}
-      {entries && entries.length > 0 && (
-        <ListGroup as="ul">
-          {entries.flatMap((entry: Entry) => (
-            <ListGroup.Item
-              key={entry.uid}
-              active={entry.uid === currentEntryId}
-              onClick={() => setCurrentEntryId(entry.uid)}
-            >
-              {entry.uid === currentEntryId && (
-                <CloseButton
-                  className="float-end"
-                  onClick={() =>
-                    dispatch({
-                      type: "deleteEntry",
-                      uid: entry.uid,
-                    })
-                  }
-                />
-              )}
-              <Badge bg="secondary">
-                <b>{entry.uid}</b>
-              </Badge>
-              <br />
-              {titleOf(entry)}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      )}
-    </>
+    entries && (
+      <div className="d-grid gap-2">
+        <ExportLorebookButton lorebook={lorebook} />
+        <AddEntryButton
+          lorebook={lorebook}
+          dispatch={dispatch}
+          setCurrentEntryId={setCurrentEntryId}
+        />
+        {entries.length > 0 && (
+          <ListGroup as="ul">
+            {entries.flatMap((entry: Entry) => (
+              <ListGroup.Item
+                key={entry.uid}
+                active={entry.uid === currentEntryId}
+                onClick={() => setCurrentEntryId(entry.uid)}
+              >
+                {entry.uid === currentEntryId && (
+                  <DeleteEntryButton
+                    className="float-end"
+                    dispatch={dispatch}
+                    entry={entry}
+                  />
+                )}
+                <Badge bg="secondary">
+                  <b>{entry.uid}</b>
+                </Badge>
+                <br />
+                {titleOf(entry)}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
+      </div>
+    )
   );
 };
 
