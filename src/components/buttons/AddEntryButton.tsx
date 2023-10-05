@@ -22,7 +22,7 @@ const AddEntryButton = (props: AddEntryButtonProps) => {
   };
 
   return (
-    <Button onClick={handleAddEntryClick}>
+    <Button onClick={handleAddEntryClick} variant="secondary">
       <FaPlus /> Add Entry
     </Button>
   );

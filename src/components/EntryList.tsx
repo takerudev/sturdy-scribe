@@ -47,6 +47,7 @@ const EntryList = (props: EntryListProps) => {
                 key={entry.uid}
                 active={entry.uid === currentEntryId}
                 onClick={() => setCurrentEntryId(entry.uid)}
+                variant="secondary"
               >
                 {entry.uid === currentEntryId && (
                   <DeleteEntryButton
@@ -55,7 +56,7 @@ const EntryList = (props: EntryListProps) => {
                     entry={entry}
                   />
                 )}
-                <Badge bg="secondary">
+                <Badge bg="dark">
                   <b>{entry.uid}</b>
                 </Badge>
                 <br />

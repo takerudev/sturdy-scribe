@@ -44,7 +44,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
   return (
     <>
       <Row>
-        <Col xs={2}>
+        <Col xs={4}>
           <EntryList
             lorebook={lorebook}
             setCurrentEntryId={setCurrentEntryId}
@@ -60,7 +60,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
             />
           )}
         </Col>
-        <Col xs={4}>
+        <Col xs={2}>
           {currentEntry && (
             <EntrySettingsEditor entry={currentEntry} dispatch={dispatch} />
           )}

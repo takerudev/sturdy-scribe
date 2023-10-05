@@ -17,7 +17,7 @@ const ExportLorebookButton = (props: SaveLorebookButtonProps) => {
   };
 
   return (
-    <Button onClick={handleExportClick}>
+    <Button onClick={handleExportClick} variant="secondary">
       <FaFileExport /> Export Lorebook
     </Button>
   );

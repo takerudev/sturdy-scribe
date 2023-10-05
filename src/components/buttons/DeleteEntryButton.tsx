@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch, useState } from "react";
 import { Entry } from "../../models/Entry";
 import { LorebookAction } from "../../models/Lorebook";
 import { FaTrash } from "react-icons/fa6";
@@ -11,9 +11,14 @@ export type DeleteEntryButtonProps = Pick<IconBaseProps, "className"> & {
 
 const DeleteEntryButton = (props: DeleteEntryButtonProps) => {
   const { dispatch, entry, className } = props;
+  const [hover, setHover] = useState<boolean>(false);
+
   return (
     <FaTrash
       className={className}
+      color={hover ? "red" : ""}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       onClick={() =>
         dispatch({
           type: "deleteEntry",
