@@ -1,2 +1,5 @@
 # Ignore artifacts:
 build
+
+# Ignore deps
+node_modules

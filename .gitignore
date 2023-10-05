@@ -21,6 +21,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# other
-src/schemas/lorebook-samples/*
-!src/schemas/lorebook-samples/lorebook-test.json
+# sample lorebooks built from yukitavern 1.9.7 https://github.com/yukikun-dev/yukitavern
+src/samples/lorebook-samples/*
+!src/samples/lorebook-samples/YUKIBOOK.json

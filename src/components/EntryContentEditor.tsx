@@ -78,8 +78,6 @@ const EntryContentEditor = (props: EntryContentEditorProps) => {
           </Form.Group>
         </>
       )}
-
-      <>{JSON.stringify(sourceEntry)}</>
     </>
   );
 };

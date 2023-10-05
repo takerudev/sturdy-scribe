@@ -1,12 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import LorebookEditor from "./components/LorebookEditor";
 import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
 
-const App = () => {
+const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
   const [lorebook, setLorebook] = useState<Lorebook>();
 
@@ -25,7 +26,7 @@ const App = () => {
 
   const updateLorebook = useCallback(
     async (file: File) => {
-      console.log("updateLorebook", files);
+      console.log("Files updated. Updating lorebook...", files);
       const rawLorebook = JSON.parse(await file.text());
       const validated = lorebookSchema.validateSync(rawLorebook, {
         abortEarly: false,
@@ -36,25 +37,31 @@ const App = () => {
   );
 
   useEffect(() => {
-    console.log("useEffect files", files);
     if (files.length > 0) updateLorebook(files[0]);
   }, [files, updateLorebook]);
 
   // === Render ===
 
   return (
-    <Container fluid>
-      <Row>
-        <Form>
-          <Form.Group controlId="formFileLg" className="mb-3">
-            <Form.Label>Upload lorebook</Form.Label>
-            <Form.Control type="file" size="lg" onChange={handleUpload} />
-          </Form.Group>
-        </Form>
-      </Row>
-      <Row>{lorebook && <LorebookEditor sourceLorebook={lorebook} />}</Row>
+    <Container>
+      <Col>
+        <hr />
+        <Row>
+          <h1>SturdyScribe (early version)</h1>
+        </Row>
+        <hr />
+        <Row>
+          <Form>
+            <Form.Group controlId="formFileLg" className="mb-3">
+              <Form.Label>Upload lorebook</Form.Label>
+              <Form.Control type="file" size="lg" onChange={handleUpload} />
+            </Form.Group>
+          </Form>
+        </Row>
+        <Row>{lorebook && <LorebookEditor sourceLorebook={lorebook} />}</Row>
+      </Col>
     </Container>
   );
 };
 
-export default App;
+export default SturdyScribe;

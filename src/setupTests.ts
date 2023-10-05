@@ -3,12 +3,3 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
-
-/*
- * TODO: Tests:
- * - Happy path schema
- * - Works for lorebooks from ages ago
- * - with `originalData`
- * - with/out `name`
- * - uniqueness of uid
- */
