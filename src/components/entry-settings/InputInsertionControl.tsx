@@ -1,7 +1,6 @@
-import { Dispatch } from "react";
 import { Entry, Position } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputInsertionControl ---
@@ -11,11 +10,11 @@ import Form from "react-bootstrap/Form";
 
 export type InputInsertionControlProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputInsertionControl = (props: InputInsertionControlProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
     <Form.Group className="mt-3">
       <Form.Label>Insertion Position</Form.Label>

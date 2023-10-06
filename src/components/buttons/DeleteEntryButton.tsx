@@ -1,16 +1,16 @@
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import { FaTrash } from "react-icons/fa6";
 import { IconBaseProps } from "react-icons/lib";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type DeleteEntryButtonProps = Pick<IconBaseProps, "className"> & {
-  dispatch: Dispatch<LorebookAction>;
   entry: Entry;
 };
 
 const DeleteEntryButton = (props: DeleteEntryButtonProps) => {
-  const { dispatch, entry, className } = props;
+  const { entry, className } = props;
+  const { dispatch } = useLorebookContext();
   const [hover, setHover] = useState<boolean>(false);
 
   return (

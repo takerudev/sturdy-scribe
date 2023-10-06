@@ -1,9 +1,8 @@
-import { Dispatch } from "react";
 import { Entry, SelectiveLogic } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputSelectiveLogicControl ---
@@ -13,11 +12,11 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 export type InputSelectiveLogicControlProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
     <div className="mt-3">
       <Form.Label>Selective Logic</Form.Label>

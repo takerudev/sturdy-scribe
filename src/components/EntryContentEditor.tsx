@@ -1,7 +1,7 @@
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Entry } from "../models/Entry";
-import { LorebookAction } from "../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "./contexts/LorebookContext";
 
 /**
  * --- EntryContentEditor ---
@@ -12,11 +12,11 @@ import Form from "react-bootstrap/Form";
 
 export type EntryContentEditorProps = {
   sourceEntry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const EntryContentEditor = (props: EntryContentEditorProps) => {
-  const { sourceEntry, dispatch } = props;
+  const { sourceEntry } = props;
+  const { dispatch } = useLorebookContext();
   const [localEntry, setLocalEntry] = useState<Entry>(sourceEntry);
 
   // Update local entry when source entry updates, this is the reload boundary for children.

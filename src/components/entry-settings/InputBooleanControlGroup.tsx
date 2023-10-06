@@ -1,8 +1,7 @@
-import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputBooleanControlGroup ---
@@ -13,11 +12,11 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 export type InputBooleanControlGroupProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
     <Form.Group className="mt-3">
       <InputGroup>

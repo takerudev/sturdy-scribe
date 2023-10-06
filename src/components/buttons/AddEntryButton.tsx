@@ -1,16 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
 import { FaPlus } from "react-icons/fa6";
-import { Lorebook, LorebookAction, maxUid } from "../../models/Lorebook";
+import { maxUid } from "../../models/Lorebook";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type AddEntryButtonProps = {
-  lorebook: Lorebook;
-  dispatch: Dispatch<LorebookAction>;
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
 };
 
 const AddEntryButton = (props: AddEntryButtonProps) => {
-  const { lorebook, dispatch, setCurrentEntryId } = props;
+  const { setCurrentEntryId } = props;
+  const { lorebook, dispatch } = useLorebookContext();
 
   const handleAddEntryClick = () => {
     const newUid = maxUid(lorebook) + 1;

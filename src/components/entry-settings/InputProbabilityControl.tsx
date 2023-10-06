@@ -1,7 +1,6 @@
-import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputProbabilityControl ---
@@ -11,14 +10,14 @@ import Form from "react-bootstrap/Form";
 
 export type InputProbabilityControlProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const constrainProbabilityInput = (probability: number): number =>
   probability >= 100 ? 100 : probability <= 0 ? 0 : probability;
 
 const InputProbabilityControl = (props: InputProbabilityControlProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
     <Form.Group>
       <Form.Label>Probability</Form.Label>

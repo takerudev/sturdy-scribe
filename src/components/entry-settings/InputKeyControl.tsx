@@ -1,8 +1,8 @@
 import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import { transformKey } from "../../models/utils";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputKeyControl ---
@@ -14,11 +14,11 @@ export type InputKeyControlProps = {
   keyType: keyof Pick<Entry, "key" | "keysecondary">;
   entry: Entry;
   setEntry: Dispatch<React.SetStateAction<Entry>>;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputKeyControl = (props: InputKeyControlProps) => {
-  const { keyType, entry, setEntry, dispatch } = props;
+  const { keyType, entry, setEntry } = props;
+  const { dispatch } = useLorebookContext();
   const label = keyType === "key" ? "Keys" : "Secondary Keys";
 
   return (

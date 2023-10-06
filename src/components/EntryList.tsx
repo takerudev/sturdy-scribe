@@ -2,16 +2,15 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
 import { Dispatch, SetStateAction } from "react";
 import { Entry, SelectiveLogic } from "../models/Entry";
-import { Lorebook, LorebookAction, entriesOf } from "../models/Lorebook";
+import { entriesOf } from "../models/Lorebook";
 import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
+import { useLorebookContext } from "./contexts/LorebookContext";
 
 export type EntryListProps = {
-  lorebook: Lorebook;
   currentEntryId: number;
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 /**
@@ -28,18 +27,15 @@ const titleOf = (entry: Entry) => {
  * List of entries, select one to make it active.
  */
 const EntryList = (props: EntryListProps) => {
-  const { lorebook, currentEntryId, setCurrentEntryId, dispatch } = props;
+  const { currentEntryId, setCurrentEntryId } = props;
+  const { lorebook } = useLorebookContext();
   const entries = entriesOf(lorebook);
 
   return (
     entries && (
       <div className="d-grid gap-2">
-        <ExportLorebookButton lorebook={lorebook} />
-        <AddEntryButton
-          lorebook={lorebook}
-          dispatch={dispatch}
-          setCurrentEntryId={setCurrentEntryId}
-        />
+        <ExportLorebookButton />
+        <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
           <ListGroup as="ul">
             {entries.flatMap((entry: Entry) => (
@@ -50,11 +46,7 @@ const EntryList = (props: EntryListProps) => {
                 variant="secondary"
               >
                 {entry.uid === currentEntryId && (
-                  <DeleteEntryButton
-                    className="float-end"
-                    dispatch={dispatch}
-                    entry={entry}
-                  />
+                  <DeleteEntryButton className="float-end" entry={entry} />
                 )}
                 <Badge bg="dark">
                   <b>{entry.uid}</b>

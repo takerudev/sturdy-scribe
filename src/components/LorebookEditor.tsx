@@ -1,23 +1,25 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import EntryList from "./EntryList";
 import EntryContentEditor from "./EntryContentEditor";
 import EntrySettingsEditor from "./entry-settings/EntrySettingsEditor";
-import { Lorebook, entriesOf, lorebookReducer } from "../models/Lorebook";
-import { lorebookSchema } from "../services/schemaService";
+import { Lorebook, entriesOf } from "../models/Lorebook";
 import { Entry } from "../models/Entry";
+import { useLorebookContext } from "./contexts/LorebookContext";
 
 export type LorebookEditorProps = {
   sourceLorebook: Lorebook;
 };
 
+/**
+ * Lorebook Editor Component
+ *
+ * Contains UI and controls for all mutations to the lorebook model
+ */
 const LorebookEditor = (props: LorebookEditorProps) => {
   const { sourceLorebook } = props;
-  const [lorebook, dispatch] = useReducer(
-    lorebookReducer,
-    lorebookSchema.cast(sourceLorebook),
-  );
+  const { lorebook, dispatch } = useLorebookContext();
   const [currentEntryId, setCurrentEntryId] = useState<number>(-1);
   const [currentEntry, setCurrentEntry] = useState<Entry>();
 
@@ -39,31 +41,22 @@ const LorebookEditor = (props: LorebookEditorProps) => {
   useEffect(() => {
     dispatch({ type: "setLorebook", lorebook: sourceLorebook });
     setCurrentEntryId(-1);
-  }, [sourceLorebook]);
+  }, [dispatch, sourceLorebook]);
 
   return (
     <>
       <Row>
         <Col xs={4}>
           <EntryList
-            lorebook={lorebook}
             setCurrentEntryId={setCurrentEntryId}
             currentEntryId={currentEntryId}
-            dispatch={dispatch}
           />
         </Col>
         <Col xs={6}>
-          {currentEntry && (
-            <EntryContentEditor
-              sourceEntry={currentEntry}
-              dispatch={dispatch}
-            />
-          )}
+          {currentEntry && <EntryContentEditor sourceEntry={currentEntry} />}
         </Col>
         <Col xs={2}>
-          {currentEntry && (
-            <EntrySettingsEditor entry={currentEntry} dispatch={dispatch} />
-          )}
+          {currentEntry && <EntrySettingsEditor entry={currentEntry} />}
         </Col>
       </Row>
     </>

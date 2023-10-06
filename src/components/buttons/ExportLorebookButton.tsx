@@ -1,14 +1,10 @@
 import Button from "react-bootstrap/Button";
-import { Lorebook } from "../../models/Lorebook";
 import saveLorebook from "../../services/fileService";
 import { FaFileExport } from "react-icons/fa6";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
-export type SaveLorebookButtonProps = {
-  lorebook: Lorebook;
-};
-
-const ExportLorebookButton = (props: SaveLorebookButtonProps) => {
-  const { lorebook } = props;
+const ExportLorebookButton = () => {
+  const { lorebook } = useLorebookContext();
 
   const handleExportClick = (e: React.MouseEvent) => {
     e.preventDefault();

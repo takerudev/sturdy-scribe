@@ -7,6 +7,7 @@ import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
 import { FaBookAtlas } from "react-icons/fa6";
+import { LorebookContextProvider } from "./components/contexts/LorebookContext";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -60,7 +61,13 @@ const SturdyScribe = () => {
             </Form.Group>
           </Form>
         </Row>
-        <Row>{lorebook && <LorebookEditor sourceLorebook={lorebook} />}</Row>
+        <Row>
+          {lorebook && (
+            <LorebookContextProvider initialLorebook={lorebook}>
+              <LorebookEditor sourceLorebook={lorebook} />
+            </LorebookContextProvider>
+          )}
+        </Row>
       </Col>
     </Container>
   );
