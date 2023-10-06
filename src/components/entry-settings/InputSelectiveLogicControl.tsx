@@ -19,7 +19,7 @@ export type InputSelectiveLogicControlProps = {
 const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
   const { entry, dispatch } = props;
   return (
-    <>
+    <div className="mt-3">
       <Form.Label>Selective Logic</Form.Label>
       <InputGroup>
         {[SelectiveLogic.AND, SelectiveLogic.NOT].flatMap((logic) => (
@@ -40,7 +40,7 @@ const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
           </Button>
         ))}
       </InputGroup>
-    </>
+    </div>
   );
 };
 

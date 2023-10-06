@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
 import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 /**
  * --- InputBooleanControlGroup ---
@@ -18,9 +19,8 @@ export type InputBooleanControlGroupProps = {
 const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
   const { entry, dispatch } = props;
   return (
-    <Form.Group>
-      <Form.Group>
-        <Form.Label>Constant</Form.Label>
+    <Form.Group className="mt-3">
+      <InputGroup>
         <Form.Check
           type="switch"
           checked={entry.constant}
@@ -33,9 +33,9 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Disabled</Form.Label>
+        <Form.Label>Constant</Form.Label>
+      </InputGroup>
+      <InputGroup>
         <Form.Check
           type="switch"
           checked={entry.disable}
@@ -48,9 +48,9 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Recursion</Form.Label>
+        <Form.Label>Disabled</Form.Label>
+      </InputGroup>
+      <InputGroup>
         <Form.Check
           type="switch"
           checked={entry.excludeRecursion}
@@ -63,7 +63,8 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
+        <Form.Label>Recursion</Form.Label>
+      </InputGroup>
     </Form.Group>
   );
 };

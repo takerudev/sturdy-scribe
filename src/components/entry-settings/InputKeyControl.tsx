@@ -22,7 +22,7 @@ const InputKeyControl = (props: InputKeyControlProps) => {
   const label = keyType === "key" ? "Keys" : "Secondary Keys";
 
   return (
-    <Form.Group>
+    <Form.Group className="mt-3">
       <Form.Label>{label}</Form.Label>
       <Form.Control
         as="textarea"

@@ -44,7 +44,9 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
         dispatch={dispatch}
       />
       <InputInsertionControl entry={localEntry} dispatch={dispatch} />
+      <hr />
       <InputBooleanControlGroup entry={localEntry} dispatch={dispatch} />
+      <hr />
       <InputProbabilityControl entry={localEntry} dispatch={dispatch} />
     </>
   );
