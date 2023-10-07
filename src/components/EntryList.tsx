@@ -7,6 +7,10 @@ import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
+import { FaGrip } from "react-icons/fa6";
+import EntryListItemContainer, {
+  EntryListItemProvider,
+} from "./EntryListItemContainer";
 
 export type EntryListProps = {
   currentEntryId: number;
@@ -26,7 +30,7 @@ const titleOf = (entry: Entry) => {
 /**
  * List of entries, select one to make it active.
  */
-const EntryList = (props: EntryListProps) => {
+const EntryListInner = (props: EntryListProps) => {
   const { currentEntryId, setCurrentEntryId } = props;
   const { lorebook } = useLorebookContext();
   const entries = entriesOf(lorebook);
@@ -39,21 +43,28 @@ const EntryList = (props: EntryListProps) => {
         {entries.length > 0 && (
           <ListGroup as="ul">
             {entries.flatMap((entry: Entry) => (
-              <ListGroup.Item
+              <EntryListItemContainer
                 key={entry.uid}
-                active={entry.uid === currentEntryId}
-                onClick={() => setCurrentEntryId(entry.uid)}
-                variant="secondary"
+                uid={entry.uid}
+                setCurrentEntryId={setCurrentEntryId}
               >
-                {entry.uid === currentEntryId && (
-                  <DeleteEntryButton className="float-end" entry={entry} />
-                )}
-                <Badge bg="dark">
-                  <b>{entry.uid}</b>
-                </Badge>
-                <br />
-                {titleOf(entry)}
-              </ListGroup.Item>
+                <ListGroup.Item
+                  key={entry.uid}
+                  active={entry.uid === currentEntryId}
+                  onClick={() => setCurrentEntryId(entry.uid)}
+                  variant="secondary"
+                >
+                  <FaGrip />{" "}
+                  {entry.uid === currentEntryId && (
+                    <DeleteEntryButton className="float-end" entry={entry} />
+                  )}
+                  <Badge bg="dark">
+                    <b>{entry.uid}</b>
+                  </Badge>
+                  <br />
+                  {titleOf(entry)}
+                </ListGroup.Item>
+              </EntryListItemContainer>
             ))}
           </ListGroup>
         )}
@@ -61,5 +72,12 @@ const EntryList = (props: EntryListProps) => {
     )
   );
 };
+
+// Context provider wrapper for EntryListInner
+const EntryList = (props: EntryListProps) => (
+  <EntryListItemProvider>
+    <EntryListInner {...props} />
+  </EntryListItemProvider>
+);
 
 export default EntryList;
