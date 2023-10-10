@@ -16,7 +16,11 @@ const HeaderToolbar = (props: HeaderToolbarProps) => {
   // TODO: Add hover text to buttons
   return (
     <ButtonToolbar className={"mb-2 mt-2"}>
-      <CreateNewLorebookButton setFiles={setFiles} className={"me-1"} />
+      <CreateNewLorebookButton
+        setFiles={setFiles}
+        className={"me-1"}
+        safe={!lorebook}
+      />
       <ExportLorebookButton className={"me-1"} disabled={!lorebook} />
       <ImportLorebookButton setFiles={setFiles} />
     </ButtonToolbar>

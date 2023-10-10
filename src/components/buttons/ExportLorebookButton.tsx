@@ -8,6 +8,8 @@ export type ExportLorebookButtonProps = Pick<
   "className" | "disabled"
 >;
 
+// TODO: Fix broken export >:c
+
 const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
   const { className, disabled } = props;
   const { lorebook } = useLorebookContext();
