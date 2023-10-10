@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import CreateNewLorebookButton from "./buttons/CreateNewLorebookButton";
-import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import { Lorebook } from "../models/Lorebook";
 import ImportLorebookButton from "./buttons/ImportLorebookButton";
 
@@ -15,13 +14,12 @@ const HeaderToolbar = (props: HeaderToolbarProps) => {
 
   // TODO: Add hover text to buttons
   return (
-    <ButtonToolbar className={"mb-2 mt-2"}>
+    <ButtonToolbar className="mb-2 mt-2">
       <CreateNewLorebookButton
         setFiles={setFiles}
-        className={"me-1"}
+        className="me-1"
         safe={!lorebook}
       />
-      <ExportLorebookButton className={"me-1"} disabled={!lorebook} />
       <ImportLorebookButton setFiles={setFiles} />
     </ButtonToolbar>
   );

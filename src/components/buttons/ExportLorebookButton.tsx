@@ -17,7 +17,6 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
   const handleExportClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log("lorebook to save", lorebook);
     if (lorebook) saveLorebook(lorebook);
   };
 
@@ -28,7 +27,7 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
       className={className}
       disabled={disabled}
     >
-      <FaFileExport />
+      <FaFileExport /> Save to file
     </Button>
   );
 };

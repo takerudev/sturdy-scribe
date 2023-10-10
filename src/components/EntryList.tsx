@@ -10,6 +10,7 @@ import { FaGrip } from "react-icons/fa6";
 import EntryListItemContainer, {
   EntryListItemProvider,
 } from "./EntryListItemContainer";
+import ExportLorebookButton from "./buttons/ExportLorebookButton";
 
 export type EntryListProps = {
   currentEntryId: number;
@@ -37,6 +38,7 @@ const EntryListInner = (props: EntryListProps) => {
   return (
     entries && (
       <div className="d-grid gap-2">
+        <ExportLorebookButton disabled={!lorebook} />
         <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
           <ListGroup as="ul">
