@@ -1,6 +1,7 @@
 import { Entry } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
 import { useLorebookContext } from "../contexts/LorebookContext";
+import { Dispatch } from "react";
 
 /**
  * --- InputProbabilityControl ---
@@ -10,39 +11,43 @@ import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputProbabilityControlProps = {
   entry: Entry;
+  setEntry: Dispatch<React.SetStateAction<Entry>>;
 };
 
 const constrainProbabilityInput = (probability: number): number =>
   probability >= 100 ? 100 : probability <= 0 ? 0 : probability;
 
 const InputProbabilityControl = (props: InputProbabilityControlProps) => {
-  const { entry } = props;
+  const { entry, setEntry } = props;
   const { dispatch } = useLorebookContext();
+
+  const setEntryUpdate = (value: number) =>
+    setEntry({
+      ...entry,
+      probability: constrainProbabilityInput(value),
+    });
+
+  const dispatchEntryUpdate = (value: number) =>
+    dispatch({
+      type: "updateEntry",
+      uid: entry.uid,
+      property: "probability",
+      value: constrainProbabilityInput(value),
+    });
+
   return (
     <Form.Group>
       <Form.Label>Probability</Form.Label>
       <Form.Range
         value={entry.probability}
-        onChange={(e) =>
-          dispatch({
-            type: "updateEntry",
-            uid: entry.uid,
-            property: "probability",
-            value: constrainProbabilityInput(e.target.valueAsNumber),
-          })
-        }
+        onChange={(e) => setEntryUpdate(e.target.valueAsNumber)}
+        onMouseUp={(e) => dispatchEntryUpdate(e.currentTarget.valueAsNumber)}
       />
       <Form.Control
         type="number"
         value={entry.probability}
-        onChange={(e) =>
-          dispatch({
-            type: "updateEntry",
-            uid: entry.uid,
-            property: "probability",
-            value: constrainProbabilityInput(+e.target.value),
-          })
-        }
+        onChange={(e) => setEntryUpdate(+e.target.value)}
+        onBlur={(e) => dispatchEntryUpdate(+e.target.value)}
       />
     </Form.Group>
   );

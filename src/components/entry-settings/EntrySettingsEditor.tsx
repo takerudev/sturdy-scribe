@@ -43,7 +43,7 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
       <hr />
       <InputBooleanControlGroup entry={localEntry} />
       <hr />
-      <InputProbabilityControl entry={localEntry} />
+      <InputProbabilityControl entry={localEntry} setEntry={setLocalEntry} />
     </>
   );
 };
