@@ -3,7 +3,6 @@ import Badge from "react-bootstrap/Badge";
 import { Dispatch, SetStateAction } from "react";
 import { Entry, SelectiveLogic } from "../models/Entry";
 import { entriesOf } from "../models/Lorebook";
-import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
@@ -38,7 +37,6 @@ const EntryListInner = (props: EntryListProps) => {
   return (
     entries && (
       <div className="d-grid gap-2">
-        <ExportLorebookButton />
         <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
           <ListGroup as="ul">
