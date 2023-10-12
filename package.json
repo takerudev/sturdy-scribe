@@ -7,10 +7,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
     "bootstrap": "^5.3.1",
     "file-saver": "^2.0.5",
     "react": "^18.2.0",
@@ -29,7 +25,7 @@
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md}'"
@@ -55,6 +51,10 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/file-saver": "^2.0.5",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
@@ -66,5 +66,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-dnd)/"
+    ]
   }
 }

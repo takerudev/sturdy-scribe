@@ -112,8 +112,6 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
   }
 };
 
-// TODO: Unit tests
-
 export const entriesOf = (lorebook: Lorebook): Entry[] =>
   Object.values(lorebook.entries);
 
