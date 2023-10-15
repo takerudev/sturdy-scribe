@@ -22,6 +22,7 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
       <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Constant checkbox"
           checked={entry.constant}
           onChange={(e) =>
             dispatch({
@@ -37,6 +38,7 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
       <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Disable checkbox"
           checked={entry.disable}
           onChange={(e) =>
             dispatch({
@@ -52,6 +54,7 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
       <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Recursion checkbox"
           checked={entry.excludeRecursion}
           onChange={(e) =>
             dispatch({

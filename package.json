@@ -28,12 +28,21 @@
     "test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "lint": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md}'"
+    "lint": "prettier --write '{e2e,src}/**/*.{js,jsx,ts,tsx,css,md}'"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:playwright/recommended"
+    ],
+    "overrides": [
+      {
+        "files": ["./**/*.spec.ts"],
+        "rules": {
+          "testing-library/prefer-screen-queries": ["off"]
+        }
+      }
     ]
   },
   "browserslist": {
@@ -50,11 +59,13 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@playwright/test": "^1.39.0",
     "@types/file-saver": "^2.0.5",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "eslint-plugin-playwright": "^0.16.0",
     "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
@@ -65,7 +76,7 @@
     "nth-check": "^2.0.1"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write"
+    "{e2e,src}/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   },
   "jest": {
     "transformIgnorePatterns": [

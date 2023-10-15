@@ -39,12 +39,14 @@ const InputProbabilityControl = (props: InputProbabilityControlProps) => {
     <Form.Group>
       <Form.Label>Probability</Form.Label>
       <Form.Range
+        aria-label="Probability slider"
         value={entry.probability}
         onChange={(e) => setEntryUpdate(e.target.valueAsNumber)}
         onMouseUp={(e) => dispatchEntryUpdate(e.currentTarget.valueAsNumber)}
       />
       <Form.Control
         type="number"
+        aria-label="Probability input"
         value={entry.probability}
         onChange={(e) => setEntryUpdate(+e.target.value)}
         onBlur={(e) => dispatchEntryUpdate(+e.target.value)}

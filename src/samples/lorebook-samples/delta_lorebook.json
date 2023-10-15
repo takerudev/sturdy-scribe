@@ -1,0 +1,38 @@
+{
+  "entries": {
+    "0": {
+      "useProbability": true,
+      "probability": 100,
+      "excludeRecursion": false,
+      "disable": false,
+      "position": 0,
+      "order": 100,
+      "addMemo": true,
+      "selectiveLogic": 0,
+      "selective": true,
+      "constant": false,
+      "comment": "",
+      "content": "",
+      "keysecondary": [],
+      "key": [],
+      "uid": 0
+    },
+    "1": {
+      "useProbability": true,
+      "probability": 69,
+      "excludeRecursion": true,
+      "disable": true,
+      "position": 2,
+      "order": 100,
+      "addMemo": true,
+      "selectiveLogic": 1,
+      "selective": true,
+      "constant": true,
+      "comment": "comment",
+      "content": "content",
+      "keysecondary": ["key 3", "key 4"],
+      "key": ["key 1", "key 2"],
+      "uid": 1
+    }
+  }
+}

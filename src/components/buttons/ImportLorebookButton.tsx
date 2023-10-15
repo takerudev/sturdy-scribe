@@ -21,6 +21,7 @@ const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
       <Button
         variant="secondary"
         onClick={() => uploadButtonRef?.current?.click()}
+        aria-label="Import button"
       >
         <FaFileImport />
       </Button>
@@ -31,6 +32,7 @@ const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
         type="file"
         onChange={handleUpload}
         style={{ display: "none" }}
+        aria-hidden="true"
       />
     </>
   );

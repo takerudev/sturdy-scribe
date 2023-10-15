@@ -32,6 +32,7 @@ const EntryContentEditor = (props: EntryContentEditorProps) => {
             <Form.Label>Content</Form.Label>
             <Form.Control
               as="textarea"
+              aria-label="Content"
               value={localEntry.content}
               onChange={(e) =>
                 setLocalEntry({
@@ -56,6 +57,7 @@ const EntryContentEditor = (props: EntryContentEditorProps) => {
             <Form.Label>Comment</Form.Label>
             <Form.Control
               as="textarea"
+              aria-label="Comment"
               value={localEntry.comment}
               onChange={(e) =>
                 setLocalEntry({

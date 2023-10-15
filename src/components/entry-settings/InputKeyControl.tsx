@@ -26,12 +26,13 @@ const InputKeyControl = (props: InputKeyControlProps) => {
       <Form.Label>{label}</Form.Label>
       <Form.Control
         as="textarea"
+        aria-label={label}
         rows={1}
         value={entry[keyType]}
         onChange={(e) =>
           setEntry({
             ...entry,
-            [keyType]: transformKey(e.target.value),
+            [keyType]: [e.target.value],
           })
         }
         onBlur={(e) =>

@@ -23,6 +23,7 @@ const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
       <InputGroup>
         {[SelectiveLogic.AND, SelectiveLogic.NOT].flatMap((logic) => (
           <Button
+            aria-label={"Selective Logic Button for " + SelectiveLogic[logic]}
             variant="secondary"
             key={logic}
             onClick={() =>

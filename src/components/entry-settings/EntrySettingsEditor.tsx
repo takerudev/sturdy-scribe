@@ -27,7 +27,7 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
   }, [entry]);
 
   return (
-    <>
+    <div aria-label="Entry settings panel">
       <InputKeyControl
         keyType="key"
         entry={localEntry}
@@ -44,7 +44,7 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
       <InputBooleanControlGroup entry={localEntry} />
       <hr />
       <InputProbabilityControl entry={localEntry} setEntry={setLocalEntry} />
-    </>
+    </div>
   );
 };
 

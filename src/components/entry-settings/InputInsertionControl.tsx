@@ -20,6 +20,7 @@ const InputInsertionControl = (props: InputInsertionControlProps) => {
       <Form.Label>Insertion Position</Form.Label>
       <Form.Select
         value={entry.position.toString()}
+        aria-label="Insertion position"
         onChange={(e) =>
           dispatch({
             type: "updateEntry",
