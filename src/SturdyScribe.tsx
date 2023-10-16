@@ -1,29 +1,17 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
 import LorebookEditor from "./components/LorebookEditor";
+import HeaderToolbar from "./components/HeaderToolbar";
 import { lorebookSchema } from "./services/schemaService";
 import { useCallback, useEffect, useState } from "react";
 import { Lorebook } from "./models/Lorebook";
 import { FaBookAtlas } from "react-icons/fa6";
+import { LorebookContextProvider } from "./components/contexts/LorebookContext";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
   const [lorebook, setLorebook] = useState<Lorebook>();
-
-  // === Upload/Import ===
-
-  const handleUpload = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      e.persist();
-      for (const file of e.target.files ?? []) {
-        if (file.type === "application/json") setFiles([file]);
-      }
-    },
-    [],
-  );
 
   const updateLorebook = useCallback(
     async (file: File) => {
@@ -41,8 +29,6 @@ const SturdyScribe = () => {
     if (files.length > 0) updateLorebook(files[0]);
   }, [files, updateLorebook]);
 
-  // === Render ===
-
   return (
     <Container>
       <Col>
@@ -54,13 +40,19 @@ const SturdyScribe = () => {
         </Row>
         <hr />
         <Row>
-          <Form>
-            <Form.Group controlId="formFileLg" className="mb-3">
-              <Form.Control type="file" size="lg" onChange={handleUpload} />
-            </Form.Group>
-          </Form>
+          <Col xs={4}>
+            <HeaderToolbar lorebook={lorebook} setFiles={setFiles} />
+          </Col>
         </Row>
-        <Row>{lorebook && <LorebookEditor sourceLorebook={lorebook} />}</Row>
+        <Row>
+          {lorebook ? (
+            <LorebookContextProvider initialLorebook={lorebook}>
+              <LorebookEditor sourceLorebook={lorebook} />
+            </LorebookContextProvider>
+          ) : (
+            <p>Start a new lorebook or import an existing one.</p>
+          )}
+        </Row>
       </Col>
     </Container>
   );

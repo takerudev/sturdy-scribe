@@ -1,7 +1,6 @@
-import { Dispatch } from "react";
-import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
+import { Entry, Position } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputInsertionControl ---
@@ -11,16 +10,17 @@ import Form from "react-bootstrap/Form";
 
 export type InputInsertionControlProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputInsertionControl = (props: InputInsertionControlProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
-    <Form.Group>
+    <Form.Group className="mt-3">
       <Form.Label>Insertion Position</Form.Label>
       <Form.Select
         value={entry.position.toString()}
+        aria-label="Insertion position"
         onChange={(e) =>
           dispatch({
             type: "updateEntry",
@@ -30,10 +30,10 @@ const InputInsertionControl = (props: InputInsertionControlProps) => {
           })
         }
       >
-        <option value="0">Before Defs</option>
-        <option value="1">After Defs</option>
-        <option value="2">Before AN</option>
-        <option value="3">After AN</option>
+        <option value={Position.BEFORE_DEFS}>Before Defs</option>
+        <option value={Position.AFTER_DEFS}>After Defs</option>
+        <option value={Position.BEFORE_AN}>Before AN</option>
+        <option value={Position.AFTER_AN}>After AN</option>
       </Form.Select>
     </Form.Group>
   );

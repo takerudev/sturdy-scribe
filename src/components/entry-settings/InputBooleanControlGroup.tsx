@@ -1,7 +1,7 @@
-import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 /**
  * --- InputBooleanControlGroup ---
@@ -12,17 +12,17 @@ import Form from "react-bootstrap/Form";
 
 export type InputBooleanControlGroupProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
 };
 
 const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
-  const { entry, dispatch } = props;
+  const { entry } = props;
+  const { dispatch } = useLorebookContext();
   return (
-    <Form.Group>
-      <Form.Group>
-        <Form.Label>Constant</Form.Label>
+    <Form.Group className="mt-3">
+      <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Constant checkbox"
           checked={entry.constant}
           onChange={(e) =>
             dispatch({
@@ -33,11 +33,12 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Disabled</Form.Label>
+        <Form.Label>Constant</Form.Label>
+      </InputGroup>
+      <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Disable checkbox"
           checked={entry.disable}
           onChange={(e) =>
             dispatch({
@@ -48,11 +49,12 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Recursion</Form.Label>
+        <Form.Label>Disabled</Form.Label>
+      </InputGroup>
+      <InputGroup>
         <Form.Check
           type="switch"
+          aria-label="Recursion checkbox"
           checked={entry.excludeRecursion}
           onChange={(e) =>
             dispatch({
@@ -63,7 +65,8 @@ const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
             })
           }
         />
-      </Form.Group>
+        <Form.Label>Recursion</Form.Label>
+      </InputGroup>
     </Form.Group>
   );
 };

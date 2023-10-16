@@ -47,7 +47,8 @@ export const entrySchema = object({
   probability: number()
     .default(() => 100)
     .min(0)
-    .max(100),
+    .max(100)
+    .required(),
   useProbability: boolean()
     .default(() => true)
     .required(),

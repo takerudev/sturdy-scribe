@@ -1,7 +1,7 @@
-import { Dispatch } from "react";
 import { Entry } from "../../models/Entry";
-import { LorebookAction } from "../../models/Lorebook";
 import Form from "react-bootstrap/Form";
+import { useLorebookContext } from "../contexts/LorebookContext";
+import { Dispatch } from "react";
 
 /**
  * --- InputProbabilityControl ---
@@ -11,39 +11,45 @@ import Form from "react-bootstrap/Form";
 
 export type InputProbabilityControlProps = {
   entry: Entry;
-  dispatch: Dispatch<LorebookAction>;
+  setEntry: Dispatch<React.SetStateAction<Entry>>;
 };
 
 const constrainProbabilityInput = (probability: number): number =>
   probability >= 100 ? 100 : probability <= 0 ? 0 : probability;
 
 const InputProbabilityControl = (props: InputProbabilityControlProps) => {
-  const { entry, dispatch } = props;
+  const { entry, setEntry } = props;
+  const { dispatch } = useLorebookContext();
+
+  const setEntryUpdate = (value: number) =>
+    setEntry({
+      ...entry,
+      probability: constrainProbabilityInput(value),
+    });
+
+  const dispatchEntryUpdate = (value: number) =>
+    dispatch({
+      type: "updateEntry",
+      uid: entry.uid,
+      property: "probability",
+      value: constrainProbabilityInput(value),
+    });
+
   return (
     <Form.Group>
       <Form.Label>Probability</Form.Label>
       <Form.Range
+        aria-label="Probability slider"
         value={entry.probability}
-        onChange={(e) =>
-          dispatch({
-            type: "updateEntry",
-            uid: entry.uid,
-            property: "probability",
-            value: constrainProbabilityInput(e.target.valueAsNumber),
-          })
-        }
+        onChange={(e) => setEntryUpdate(e.target.valueAsNumber)}
+        onMouseUp={(e) => dispatchEntryUpdate(e.currentTarget.valueAsNumber)}
       />
       <Form.Control
         type="number"
+        aria-label="Probability input"
         value={entry.probability}
-        onChange={(e) =>
-          dispatch({
-            type: "updateEntry",
-            uid: entry.uid,
-            property: "probability",
-            value: constrainProbabilityInput(+e.target.value),
-          })
-        }
+        onChange={(e) => setEntryUpdate(+e.target.value)}
+        onBlur={(e) => dispatchEntryUpdate(+e.target.value)}
       />
     </Form.Group>
   );

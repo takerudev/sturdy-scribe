@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import SturdyScribe from "./SturdyScribe";
 
-test("renders learn react link", () => {
+it("should render the title without crashing", () => {
   render(<SturdyScribe />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const title = screen.getByText("SturdyScribe (early preview)");
+  expect(title).toBeInTheDocument();
 });

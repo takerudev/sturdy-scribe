@@ -5,6 +5,10 @@
 
 # testing
 /coverage
+/test-results/
+/tests-examples/
+/playwright-report/
+/playwright/.cache/
 
 # production
 /build
@@ -24,3 +28,4 @@ yarn-error.log*
 # sample lorebooks built from yukitavern 1.9.7 https://github.com/yukikun-dev/yukitavern
 src/samples/lorebook-samples/*
 !src/samples/lorebook-samples/YUKIBOOK.json
+!src/samples/lorebook-samples/delta_lorebook.json

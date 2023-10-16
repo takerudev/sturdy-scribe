@@ -6,6 +6,7 @@ export type Lorebook = InferType<typeof lorebookSchema>;
 
 export type LorebookAction =
   | UpdateEntryAction
+  | SwapEntryAction
   | NewEntryAction
   | DeleteEntryAction
   | SetLorebookAction;
@@ -15,6 +16,12 @@ export type UpdateEntryAction = {
   uid: number;
   property: keyof Entry;
   value: EntryAttributeValue;
+};
+
+export type SwapEntryAction = {
+  type: "swapEntry";
+  uid1: number;
+  uid2: number;
 };
 
 export type NewEntryAction = {
@@ -34,6 +41,7 @@ export type SetLorebookAction = {
 
 /**
  * TODO: Add unit tests
+ * TODO: Add Error types
  */
 export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
   switch (action.type) {
@@ -48,6 +56,32 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
           },
         },
       };
+
+    case "swapEntry":
+      const { uid1, uid2 } = action;
+      if (validUids([uid1, uid2], state)) {
+        const tempEntry1 = {
+          ...state.entries[uid1],
+          uid: uid2,
+        };
+        const tempEntry2 = {
+          ...state.entries[uid2],
+          uid: uid1,
+        };
+        return {
+          ...state,
+          entries: {
+            ...state.entries,
+            [uid2]: tempEntry1,
+            [uid1]: tempEntry2,
+          },
+        };
+      }
+      throw new Error(
+        `Cannot swap entries, bad uids: one of ${uid1} or ${uid2} not found in ${JSON.stringify(
+          uidsOf(state),
+        )}`,
+      );
 
     case "newEntry":
       const newUid = action.uid;
@@ -80,6 +114,12 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
 
 export const entriesOf = (lorebook: Lorebook): Entry[] =>
   Object.values(lorebook.entries);
+
+export const uidsOf = (lorebook: Lorebook): number[] =>
+  entriesOf(lorebook).flatMap((e) => e.uid);
+
+export const validUids = (uids: number[], lorebook: Lorebook) =>
+  uids.every((uid) => uidsOf(lorebook).includes(uid));
 
 /**
  * @param {Lorebook} lorebook
