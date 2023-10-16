@@ -8,8 +8,6 @@ export type ExportLorebookButtonProps = Pick<
   "className" | "disabled"
 >;
 
-// TODO: Fix broken export >:c
-
 const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
   const { className, disabled } = props;
   const { lorebook } = useLorebookContext();
@@ -26,6 +24,7 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
       variant="secondary"
       className={className}
       disabled={disabled}
+      aria-label="Export button"
     >
       <FaFileExport /> Save to file
     </Button>

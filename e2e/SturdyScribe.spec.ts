@@ -1,6 +1,8 @@
-import { test, expect, FileChooser } from "@playwright/test";
-import path from "path";
+import { test, expect } from "@playwright/test";
 import { Position } from "../src/models/Entry";
+import { downloadLorebook, getDeltaLorebook, uploadLorebook } from "./helpers";
+import { lorebookSchema } from "../src/services/schemaService";
+import { Lorebook } from "../src/models/Lorebook";
 
 // TODO: test specs for editing textboxes and settings (and saving correctly)
 // TODO: test specs for reordering entries and creating new ones
@@ -11,24 +13,9 @@ test.describe("SturdyScribe", () => {
     await expect(page).toHaveTitle(/SturdyScribe/);
   });
 
-  /**
-   * Loads a lorebook from file, then checks that all data has been rendered correctly.
-   */
   test("can upload and render files", async ({ page }) => {
-    // Create filechooser listener to upload lorebook file
-    const pathToFile = path.join(
-      __dirname,
-      "../src/samples/lorebook-samples/delta_lorebook.json",
-    );
-    page.on(
-      "filechooser",
-      async (fileChooser: FileChooser) =>
-        await fileChooser.setFiles(pathToFile),
-    );
-
-    // Goto page and start importing the lorebook
     await page.goto("/");
-    await page.getByLabel("Import button").click();
+    await uploadLorebook(page);
 
     // Check entrylist rendering
     await expect(page.getByText("AND")).toHaveCount(1);
@@ -77,5 +64,17 @@ test.describe("SturdyScribe", () => {
     await expect(page.getByLabel(/^Disable/)).toBeChecked();
     await expect(page.getByLabel(/^Probability slider$/)).toHaveValue("69");
     await expect(page.getByLabel(/^Probability input$/)).toHaveValue("69");
+  });
+
+  test("can download lorebooks to filesystem", async ({ page }) => {
+    await page.goto("/");
+    await uploadLorebook(page);
+
+    const rawResultLorebook = await downloadLorebook(page);
+    const resultLorebook: Lorebook = lorebookSchema.cast(rawResultLorebook);
+
+    const rawExpectedLorebook = getDeltaLorebook();
+    const expectedLorebook: Lorebook = lorebookSchema.cast(rawExpectedLorebook);
+    expect(resultLorebook).toEqual(expectedLorebook);
   });
 });

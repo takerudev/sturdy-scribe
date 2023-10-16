@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-scripts": "5.0.1",
+    "stream-to-promise": "^3.0.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
     "yup": "^1.2.0"
@@ -38,9 +39,13 @@
     ],
     "overrides": [
       {
-        "files": ["./**/*.spec.ts"],
+        "files": [
+          "./**/*.spec.ts"
+        ],
         "rules": {
-          "testing-library/prefer-screen-queries": ["off"]
+          "testing-library/prefer-screen-queries": [
+            "off"
+          ]
         }
       }
     ]
@@ -65,6 +70,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/stream-to-promise": "^2.2.2",
     "eslint-plugin-playwright": "^0.16.0",
     "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
