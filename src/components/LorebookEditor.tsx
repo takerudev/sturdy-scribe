@@ -7,6 +7,8 @@ import EntrySettingsEditor from "./entry-settings/EntrySettingsEditor";
 import { Lorebook, entriesOf } from "../models/Lorebook";
 import { Entry } from "../models/Entry";
 import { useLorebookContext } from "./contexts/LorebookContext";
+import store from "store2";
+import { LOREBOOK_KEY } from "../util/constants";
 
 export type LorebookEditorProps = {
   sourceLorebook: Lorebook;
@@ -42,6 +44,10 @@ const LorebookEditor = (props: LorebookEditorProps) => {
     dispatch({ type: "setLorebook", lorebook: sourceLorebook });
     setCurrentEntryId(-1);
   }, [dispatch, sourceLorebook]);
+
+  useEffect(() => {
+    store.set(LOREBOOK_KEY, lorebook);
+  }, [lorebook]);
 
   return (
     <>
