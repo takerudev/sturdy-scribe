@@ -17,9 +17,6 @@ export type EntryListProps = {
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
 };
 
-/**
- * Extract into component if custom title metadata is added later.
- */
 const titleOf = (entry: Entry) => {
   const joinedKeys = entry.key.join(" | ");
   const joinedSecondaries = entry.keysecondary.join(" | ");

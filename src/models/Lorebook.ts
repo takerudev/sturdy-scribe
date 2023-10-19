@@ -2,6 +2,9 @@ import { InferType } from "yup";
 import { Entry, EntryAttributeValue } from "./Entry";
 import { entrySchema, lorebookSchema } from "../services/schemaService";
 
+// TODO: expand local Lorebook type def
+// TODO: wrap schema casting
+// TODO: test prototype book is equivalent to local Lorebook type
 export type Lorebook = InferType<typeof lorebookSchema>;
 
 export type LorebookAction =

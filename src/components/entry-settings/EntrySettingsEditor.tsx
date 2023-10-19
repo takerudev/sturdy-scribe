@@ -6,17 +6,13 @@ import InputProbabilityControl from "./InputProbabilityControl";
 import InputInsertionControl from "./InputInsertionControl";
 import InputSelectiveLogicControl from "./InputSelectiveLogicControl";
 
-/**
- * --- EntrySettingsEditor ---
- *
- * Editor panel for entry meta settings.
- * TODO: Extract entry/dispatch into provider hook.
- */
-
 export type EntrySettingsEditorProps = {
   entry: Entry;
 };
 
+/**
+ * Editor panel for entry meta settings.
+ */
 const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
   const { entry } = props;
   const [localEntry, setLocalEntry] = useState<Entry>(entry);

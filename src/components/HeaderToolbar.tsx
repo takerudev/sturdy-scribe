@@ -9,10 +9,13 @@ export type HeaderToolbarProps = {
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
+/**
+ * Header containing some buttons relating to lorebook control.
+ * TODO: Add hover text to buttons
+ */
 const HeaderToolbar = (props: HeaderToolbarProps) => {
   const { lorebook, setFiles } = props;
 
-  // TODO: Add hover text to buttons
   return (
     <ButtonToolbar className="mb-2 mt-2">
       <CreateNewLorebookButton

@@ -2,16 +2,13 @@ import { Entry, Position } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
-/**
- * --- InputInsertionControl ---
- *
- * Handles different insertion types, i.e. Insertion Position.
- */
-
 export type InputInsertionControlProps = {
   entry: Entry;
 };
 
+/**
+ * Handles different insertion types, i.e. Insertion Position.
+ */
 const InputInsertionControl = (props: InputInsertionControlProps) => {
   const { entry } = props;
   const { dispatch } = useLorebookContext();

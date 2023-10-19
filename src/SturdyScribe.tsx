@@ -11,7 +11,7 @@ import { Lorebook, entriesOf } from "./models/Lorebook";
 import { FaBookAtlas } from "react-icons/fa6";
 import { LorebookContextProvider } from "./components/contexts/LorebookContext";
 import store from "store2";
-import { LOREBOOK_KEY } from "./util/constants";
+import { LOREBOOK_KEY } from "./common/constants";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -37,10 +37,14 @@ const SturdyScribe = () => {
   };
 
   const hasOldSession = (): boolean => {
-    if (store.has(LOREBOOK_KEY)) {
-      const storedData = store.get(LOREBOOK_KEY);
-      const storedLorebook = lorebookSchema.cast(storedData);
-      return entriesOf(storedLorebook).length > 0;
+    try {
+      if (store.has(LOREBOOK_KEY)) {
+        const storedData = store.get(LOREBOOK_KEY);
+        const storedLorebook = lorebookSchema.cast(storedData);
+        return entriesOf(storedLorebook).length > 0;
+      }
+    } catch (e) {
+      console.error(e);
     }
     return false;
   };
