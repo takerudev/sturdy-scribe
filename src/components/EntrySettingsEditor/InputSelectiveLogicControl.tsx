@@ -1,19 +1,17 @@
-import { Entry, SelectiveLogic } from "../../models/Entry";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useLorebookContext } from "../contexts/LorebookContext";
 
-/**
- * --- InputSelectiveLogicControl ---
- *
- * Handles the two different selection types for the secondary key, i.e. AND/NOT
- */
+import { Entry, SelectiveLogic } from "../../models/Entry";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputSelectiveLogicControlProps = {
   entry: Entry;
 };
 
+/**
+ * Handles the two different selection types for the secondary key, i.e. AND/NOT
+ */
 const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
   const { entry } = props;
   const { dispatch } = useLorebookContext();

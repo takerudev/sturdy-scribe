@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Entry } from "../../models/Entry";
 import { FaTrash } from "react-icons/fa6";
 import { IconBaseProps } from "react-icons/lib";
-import { useLorebookContext } from "../contexts/LorebookContext";
+
+import { Entry } from "../../models/Entry";
 import { maxUid } from "../../models/Lorebook";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type DeleteEntryButtonProps = Pick<IconBaseProps, "className"> & {
   entry: Entry;

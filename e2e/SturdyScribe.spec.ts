@@ -1,8 +1,9 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
+
 import { Position } from "../src/models/Entry";
-import { downloadLorebook, getDeltaLorebook, uploadLorebook } from "./helpers";
-import { lorebookSchema } from "../src/services/schemaService";
 import { Lorebook } from "../src/models/Lorebook";
+import { lorebookSchema } from "../src/services/schemaService";
+import { downloadLorebook, getDeltaLorebook, uploadLorebook } from "./helpers";
 
 // TODO: test specs for editing textboxes and settings (and saving correctly)
 // TODO: test specs for reordering entries and creating new ones

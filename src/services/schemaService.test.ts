@@ -1,7 +1,7 @@
-import { lorebookSchema } from "../services/schemaService";
-import * as yuki from "../samples/lorebook-samples/YUKIBOOK.json";
-import { Lorebook } from "../models/Lorebook";
 import { Entry, Position, SelectiveLogic } from "../models/Entry";
+import { Lorebook } from "../models/Lorebook";
+import * as yuki from "../samples/lorebook-samples/YUKIBOOK.json";
+import { lorebookSchema } from "../services/schemaService";
 
 describe("schemaService", () => {
   it("should cast prototypical lorebook data successfully", () => {

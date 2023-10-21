@@ -1,6 +1,6 @@
 import { Download, FileChooser, Page } from "@playwright/test";
-import streamToPromise from "stream-to-promise";
 import path from "path";
+import streamToPromise from "stream-to-promise";
 
 const DELTA_LOREBOOK_FILEPATH =
   "../src/samples/lorebook-samples/delta_lorebook.json";

@@ -1,19 +1,16 @@
-import { Entry } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useLorebookContext } from "../contexts/LorebookContext";
 
-/**
- * --- InputBooleanControlGroup ---
- *
- * Contains the few configurable boolean values for entry settings.
- * Consider breaking into reusable component if complexity blows out. It's fine for now.
- */
+import { Entry } from "../../models/Entry";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputBooleanControlGroupProps = {
   entry: Entry;
 };
 
+/**
+ * Contains configurable boolean values for an entry.
+ */
 const InputBooleanControlGroup = (props: InputBooleanControlGroupProps) => {
   const { entry } = props;
   const { dispatch } = useLorebookContext();

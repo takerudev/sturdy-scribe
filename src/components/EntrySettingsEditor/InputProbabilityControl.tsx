@@ -1,13 +1,8 @@
-import { Entry } from "../../models/Entry";
-import Form from "react-bootstrap/Form";
-import { useLorebookContext } from "../contexts/LorebookContext";
 import { Dispatch } from "react";
+import Form from "react-bootstrap/Form";
 
-/**
- * --- InputProbabilityControl ---
- *
- * Handles probability settings for an entry.
- */
+import { Entry } from "../../models/Entry";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputProbabilityControlProps = {
   entry: Entry;
@@ -17,6 +12,9 @@ export type InputProbabilityControlProps = {
 const constrainProbabilityInput = (probability: number): number =>
   probability >= 100 ? 100 : probability <= 0 ? 0 : probability;
 
+/**
+ * Handles probability settings for an entry.
+ */
 const InputProbabilityControl = (props: InputProbabilityControlProps) => {
   const { entry, setEntry } = props;
   const { dispatch } = useLorebookContext();

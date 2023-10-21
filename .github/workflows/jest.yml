@@ -1,0 +1,25 @@
+name: Jest CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Setup Yarn
+      run: npm install -g yarn
+
+    - name: Install dependencies and run tests
+      run: |
+        yarn install --frozen-lockfile
+        yarn test

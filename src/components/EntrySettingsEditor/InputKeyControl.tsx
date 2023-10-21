@@ -1,14 +1,8 @@
 import { Dispatch } from "react";
-import { Entry } from "../../models/Entry";
-import { transformKey } from "../../models/utils";
 import Form from "react-bootstrap/Form";
-import { useLorebookContext } from "../contexts/LorebookContext";
 
-/**
- * --- InputKeyControl ---
- *
- * TODO: Add key tag handling system
- */
+import { Entry } from "../../models/Entry";
+import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputKeyControlProps = {
   keyType: keyof Pick<Entry, "key" | "keysecondary">;
@@ -16,6 +10,13 @@ export type InputKeyControlProps = {
   setEntry: Dispatch<React.SetStateAction<Entry>>;
 };
 
+const transformKey = (raw: string): string[] =>
+  raw.split(",").map((s: string) => s.trim());
+
+/**
+ * Handles Keys and Secondary Keys input
+ * TODO: Add key tag handling system
+ */
 const InputKeyControl = (props: InputKeyControlProps) => {
   const { keyType, entry, setEntry } = props;
   const { dispatch } = useLorebookContext();

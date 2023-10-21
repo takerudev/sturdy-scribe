@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import EntryList from "./EntryList";
-import EntryContentEditor from "./EntryContentEditor";
-import EntrySettingsEditor from "./entry-settings/EntrySettingsEditor";
-import { Lorebook, entriesOf } from "../models/Lorebook";
+import store from "store2";
+
+import { LOREBOOK_KEY } from "../common/constants";
 import { Entry } from "../models/Entry";
+import { entriesOf, Lorebook } from "../models/Lorebook";
 import { useLorebookContext } from "./contexts/LorebookContext";
+import EntryContentEditor from "./EntryContentEditor";
+import EntryList from "./EntryList";
+import EntrySettingsEditor from "./EntrySettingsEditor";
 
 export type LorebookEditorProps = {
   sourceLorebook: Lorebook;
 };
 
 /**
- * Lorebook Editor Component
- *
- * Contains UI and controls for all mutations to the lorebook model
+ * Contains primary UI and controls for all mutations to the lorebook model
+ * TODO: Allow resizing width of the three main panels
  */
 const LorebookEditor = (props: LorebookEditorProps) => {
   const { sourceLorebook } = props;
@@ -23,9 +25,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
   const [currentEntryId, setCurrentEntryId] = useState<number>(-1);
   const [currentEntry, setCurrentEntry] = useState<Entry>();
 
-  /**
-   * Keep currentEntry matched to currentEntryId
-   */
+  // Load currentEntry data to reflect currentEntryId
   useEffect(() => {
     const newCurrentEntry = entriesOf(lorebook).find(
       (entry) => entry.uid === currentEntryId,
@@ -35,13 +35,16 @@ const LorebookEditor = (props: LorebookEditorProps) => {
     }
   }, [currentEntry, currentEntryId, lorebook]);
 
-  /**
-   * Update lorebook when new lorebook is selected or uploaded.
-   */
+  // Update lorebook when new lorebook is selected or uploaded.
   useEffect(() => {
     dispatch({ type: "setLorebook", lorebook: sourceLorebook });
     setCurrentEntryId(-1);
   }, [dispatch, sourceLorebook]);
+
+  // Save lorebook to store when lorebook is updated
+  useEffect(() => {
+    store.set(LOREBOOK_KEY, lorebook);
+  }, [lorebook]);
 
   return (
     <>

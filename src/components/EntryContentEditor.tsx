@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import { Entry } from "../models/Entry";
 import Form from "react-bootstrap/Form";
-import { useLorebookContext } from "./contexts/LorebookContext";
 
-/**
- * --- EntryContentEditor ---
- *
- * Primary editor panel for entry content and comments.
- * TODO: Adjust vertical line count dynamically, maybe under a clientside toggle.
- */
+import { Entry } from "../models/Entry";
+import { useLorebookContext } from "./contexts/LorebookContext";
 
 export type EntryContentEditorProps = {
   sourceEntry: Entry;
 };
 
+/**
+ * Primary editor panel for entry content and comments.
+ * TODO: Adjust vertical line count dynamically, maybe under a clientside toggle.
+ */
 const EntryContentEditor = (props: EntryContentEditorProps) => {
   const { sourceEntry } = props;
   const { dispatch } = useLorebookContext();
