@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+
 import { Entry } from "../../models/Entry";
-import InputKeyControl from "./InputKeyControl";
 import InputBooleanControlGroup from "./InputBooleanControlGroup";
-import InputProbabilityControl from "./InputProbabilityControl";
 import InputInsertionControl from "./InputInsertionControl";
+import InputKeyControl from "./InputKeyControl";
+import InputProbabilityControl from "./InputProbabilityControl";
 import InputSelectiveLogicControl from "./InputSelectiveLogicControl";
 
 export type EntrySettingsEditorProps = {

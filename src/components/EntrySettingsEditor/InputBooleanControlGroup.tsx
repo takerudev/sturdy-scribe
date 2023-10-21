@@ -1,6 +1,7 @@
-import { Entry } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+
+import { Entry } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputBooleanControlGroupProps = {

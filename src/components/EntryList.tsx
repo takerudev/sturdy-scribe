@@ -1,16 +1,17 @@
-import ListGroup from "react-bootstrap/ListGroup";
-import Badge from "react-bootstrap/Badge";
 import { Dispatch, SetStateAction } from "react";
+import Badge from "react-bootstrap/Badge";
+import ListGroup from "react-bootstrap/ListGroup";
+import { FaGrip } from "react-icons/fa6";
+
 import { Entry, SelectiveLogic } from "../models/Entry";
 import { entriesOf } from "../models/Lorebook";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
+import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
-import { FaGrip } from "react-icons/fa6";
 import EntryListItemContainer, {
   EntryListItemProvider,
 } from "./EntryListItemContainer";
-import ExportLorebookButton from "./buttons/ExportLorebookButton";
 
 export type EntryListProps = {
   currentEntryId: number;

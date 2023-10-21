@@ -1,17 +1,18 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import LorebookEditor from "./components/LorebookEditor";
-import HeaderToolbar from "./components/HeaderToolbar";
-import { lorebookSchema } from "./services/schemaService";
-import { useCallback, useEffect, useState } from "react";
-import { Lorebook, entriesOf } from "./models/Lorebook";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { FaBookAtlas } from "react-icons/fa6";
-import { LorebookContextProvider } from "./components/contexts/LorebookContext";
 import store from "store2";
+
 import { LOREBOOK_KEY } from "./common/constants";
+import { LorebookContextProvider } from "./components/contexts/LorebookContext";
+import HeaderToolbar from "./components/HeaderToolbar";
+import LorebookEditor from "./components/LorebookEditor";
+import { entriesOf, Lorebook } from "./models/Lorebook";
+import { lorebookSchema } from "./services/schemaService";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);

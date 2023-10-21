@@ -1,5 +1,6 @@
-import { Entry, Position } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
+
+import { Entry, Position } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputInsertionControlProps = {

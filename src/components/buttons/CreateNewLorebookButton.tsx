@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Button, { ButtonProps } from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaPlus } from "react-icons/fa6";
+
 import { createEmptyLorebookFile } from "../../services/fileService";
 
 export type CreateNewLorebookButtonProps = Pick<ButtonProps, "className"> & {

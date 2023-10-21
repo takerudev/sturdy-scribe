@@ -1,5 +1,12 @@
+/**
+ * DEPRECATED
+ *
+ * NOT IN USE
+ */
+
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
+
 import { Entry, EntryAttributeValue } from "../models/Entry";
 
 export type LorebookEntryProps = {

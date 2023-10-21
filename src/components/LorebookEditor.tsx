@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import EntryList from "./EntryList";
-import EntryContentEditor from "./EntryContentEditor";
-import EntrySettingsEditor from "./entry-settings/EntrySettingsEditor";
-import { Lorebook, entriesOf } from "../models/Lorebook";
-import { Entry } from "../models/Entry";
-import { useLorebookContext } from "./contexts/LorebookContext";
 import store from "store2";
+
 import { LOREBOOK_KEY } from "../common/constants";
+import { Entry } from "../models/Entry";
+import { entriesOf, Lorebook } from "../models/Lorebook";
+import { useLorebookContext } from "./contexts/LorebookContext";
+import EntryContentEditor from "./EntryContentEditor";
+import EntryList from "./EntryList";
+import EntrySettingsEditor from "./EntrySettingsEditor";
 
 export type LorebookEditorProps = {
   sourceLorebook: Lorebook;

@@ -1,6 +1,7 @@
 import { InferType } from "yup";
-import { Entry, EntryAttributeValue } from "./Entry";
+
 import { entrySchema, lorebookSchema } from "../services/schemaService";
+import { Entry, EntryAttributeValue } from "./Entry";
 
 // TODO: expand local Lorebook type def
 // TODO: wrap schema casting

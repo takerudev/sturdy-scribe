@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
-import { Entry } from "../../models/Entry";
 import Form from "react-bootstrap/Form";
+
+import { Entry } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
 export type InputKeyControlProps = {

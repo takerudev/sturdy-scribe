@@ -1,6 +1,6 @@
-import { lorebookSchema } from "../services/schemaService";
-import { maxUid, type Lorebook, validUids, lorebookReducer } from "./Lorebook";
 import * as yuki from "../samples/lorebook-samples/YUKIBOOK.json";
+import { lorebookSchema } from "../services/schemaService";
+import { type Lorebook, lorebookReducer, maxUid, validUids } from "./Lorebook";
 
 describe("maxUid", () => {
   it("should give the largest uid amongst entries in a lorebook", () => {
