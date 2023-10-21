@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sturdy-scribe/static/css/main.6ccd65a8.css",
-    "main.js": "/sturdy-scribe/static/js/main.14f4bf76.js",
+    "main.css": "/sturdy-scribe/static/css/main.eefc237f.css",
+    "main.js": "/sturdy-scribe/static/js/main.e467322a.js",
     "static/js/787.f8178f72.chunk.js": "/sturdy-scribe/static/js/787.f8178f72.chunk.js",
     "index.html": "/sturdy-scribe/index.html",
-    "main.6ccd65a8.css.map": "/sturdy-scribe/static/css/main.6ccd65a8.css.map",
-    "main.14f4bf76.js.map": "/sturdy-scribe/static/js/main.14f4bf76.js.map",
+    "main.eefc237f.css.map": "/sturdy-scribe/static/css/main.eefc237f.css.map",
+    "main.e467322a.js.map": "/sturdy-scribe/static/js/main.e467322a.js.map",
     "787.f8178f72.chunk.js.map": "/sturdy-scribe/static/js/787.f8178f72.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6ccd65a8.css",
-    "static/js/main.14f4bf76.js"
+    "static/css/main.eefc237f.css",
+    "static/js/main.e467322a.js"
   ]
 }
