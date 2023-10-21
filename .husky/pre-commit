@@ -4,3 +4,4 @@
 npx tsc
 npx lint-staged
 yarn test
+yarn playwright test

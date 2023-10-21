@@ -91,7 +91,8 @@
     "nth-check": "^2.0.1"
   },
   "lint-staged": {
-    "{e2e,src}/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write"
+    "{e2e,src}/**/*.{js,jsx,ts,tsx,css,md}": "prettier --write",
+    "{e2e,src}/**/*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "jest": {
     "transformIgnorePatterns": [
