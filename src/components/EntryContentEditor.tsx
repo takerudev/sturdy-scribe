@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 
 import { Entry } from "../models/Entry";
+import { countTokens } from "../services/tokenService";
 import { useLorebookContext } from "./contexts/LorebookContext";
 
 export type EntryContentEditorProps = {
@@ -50,6 +51,7 @@ const EntryContentEditor = (props: EntryContentEditorProps) => {
               spellCheck
               wrap="hard"
             />
+            <p>GPT Tokens: {countTokens(localEntry.content).toString()}</p>
           </Form.Group>
           <Form.Group>
             <Form.Label>Comment</Form.Label>
