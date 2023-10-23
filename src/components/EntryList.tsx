@@ -18,6 +18,7 @@ export type EntryListProps = {
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
 };
 
+// TODO: extract to separate component and include a test id
 const titleOf = (entry: Entry) => {
   const joinedKeys = entry.key.join(" | ");
   const joinedSecondaries = entry.keysecondary.join(" | ");

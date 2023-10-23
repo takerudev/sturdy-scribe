@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import store from "store2";
 
-import { LOREBOOK_KEY } from "../common/constants";
 import { Entry } from "../models/Entry";
 import { entriesOf, Lorebook } from "../models/Lorebook";
+import { storeLorebook } from "../services/storeService";
 import { useLorebookContext } from "./contexts/LorebookContext";
 import EntryContentEditor from "./EntryContentEditor";
 import EntryList from "./EntryList";
@@ -43,7 +42,7 @@ const LorebookEditor = (props: LorebookEditorProps) => {
 
   // Save lorebook to store when lorebook is updated
   useEffect(() => {
-    store.set(LOREBOOK_KEY, lorebook);
+    storeLorebook(lorebook);
   }, [lorebook]);
 
   return (
