@@ -11,3 +11,5 @@ I aim to support the minimum set of features available in the latest version of 
 ---
 
 Enjoy, lorebookmakies.
+
+l i c c
