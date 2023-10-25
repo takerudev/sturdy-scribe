@@ -5,14 +5,14 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { FaBookAtlas } from "react-icons/fa6";
-import store from "store2";
 
-import { LOREBOOK_KEY } from "./common/constants";
 import { LorebookContextProvider } from "./components/contexts/LorebookContext";
+import { SturdyConfigContextProvider } from "./components/contexts/SturdyConfigContext";
 import HeaderToolbar from "./components/HeaderToolbar";
 import LorebookEditor from "./components/LorebookEditor";
-import { entriesOf, Lorebook } from "./models/Lorebook";
+import { Lorebook } from "./models/Lorebook";
 import { lorebookSchema } from "./services/schemaService";
+import { getStoredLorebook, hasStoredLorebook } from "./services/storeService";
 
 const SturdyScribe = () => {
   const [files, setFiles] = useState<Array<File>>([]);
@@ -22,9 +22,7 @@ const SturdyScribe = () => {
     async (file: File) => {
       console.log("Files updated. Updating lorebook...", files);
       const rawLorebook = JSON.parse(await file.text());
-      const validated = lorebookSchema.validateSync(rawLorebook, {
-        abortEarly: false,
-      });
+      const validated: Lorebook = lorebookSchema.cast(rawLorebook);
       setLorebook(validated);
     },
     [files],
@@ -32,22 +30,8 @@ const SturdyScribe = () => {
 
   const loadLorebookFromStorage = () => {
     console.log("Loading lorebook from storage...");
-    const storedData = store.get(LOREBOOK_KEY);
-    const storedLorebook = lorebookSchema.cast(storedData);
+    const storedLorebook = getStoredLorebook();
     setLorebook(storedLorebook);
-  };
-
-  const hasOldSession = (): boolean => {
-    try {
-      if (store.has(LOREBOOK_KEY)) {
-        const storedData = store.get(LOREBOOK_KEY);
-        const storedLorebook = lorebookSchema.cast(storedData);
-        return entriesOf(storedLorebook).length > 0;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return false;
   };
 
   useEffect(() => {
@@ -55,8 +39,8 @@ const SturdyScribe = () => {
   }, [files, updateLorebook]);
 
   return (
-    <Container>
-      <Col>
+    <SturdyConfigContextProvider>
+      <Container>
         <hr />
         <Row>
           <h1>
@@ -78,7 +62,7 @@ const SturdyScribe = () => {
             <>
               <p>Start a new lorebook or import an existing one.</p>
               <br />
-              {hasOldSession() && (
+              {hasStoredLorebook() && (
                 <Col xs={4}>
                   <ButtonGroup>
                     <Button
@@ -93,8 +77,8 @@ const SturdyScribe = () => {
             </>
           )}
         </Row>
-      </Col>
-    </Container>
+      </Container>
+    </SturdyConfigContextProvider>
   );
 };
 

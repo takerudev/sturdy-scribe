@@ -3,26 +3,21 @@ import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import { FaGrip } from "react-icons/fa6";
 
-import { Entry, SelectiveLogic } from "../models/Entry";
+import { Entry } from "../models/Entry";
 import { entriesOf } from "../models/Lorebook";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
 import ExportLorebookButton from "./buttons/ExportLorebookButton";
+import TitleTypeToggleButton from "./buttons/TitleTypeToggleButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
 import EntryListItemContainer, {
   EntryListItemProvider,
 } from "./EntryListItemContainer";
+import EntryTitle from "./EntryTitle";
 
 export type EntryListProps = {
   currentEntryId: number;
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
-};
-
-const titleOf = (entry: Entry) => {
-  const joinedKeys = entry.key.join(" | ");
-  const joinedSecondaries = entry.keysecondary.join(" | ");
-  const selectiveLogicString = SelectiveLogic[entry.selectiveLogic];
-  return `[ ${joinedKeys} ] --- ${selectiveLogicString} --- [ ${joinedSecondaries} ]`;
 };
 
 /**
@@ -37,6 +32,7 @@ const EntryListInner = (props: EntryListProps) => {
     entries && (
       <div className="d-grid gap-2">
         <ExportLorebookButton disabled={!lorebook} />
+        <TitleTypeToggleButton />
         <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
           <ListGroup as="ul">
@@ -59,8 +55,7 @@ const EntryListInner = (props: EntryListProps) => {
                   <Badge bg="dark">
                     <b>{entry.uid}</b>
                   </Badge>
-                  <br />
-                  {titleOf(entry)}
+                  <EntryTitle entry={entry} />
                 </ListGroup.Item>
               </EntryListItemContainer>
             ))}

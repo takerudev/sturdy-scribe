@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import store from "store2";
 
-import { LOREBOOK_KEY } from "../common/constants";
 import { Entry } from "../models/Entry";
 import { entriesOf, Lorebook } from "../models/Lorebook";
+import { storeLorebook } from "../services/storeService";
 import { useLorebookContext } from "./contexts/LorebookContext";
 import EntryContentEditor from "./EntryContentEditor";
 import EntryList from "./EntryList";
@@ -18,6 +17,7 @@ export type LorebookEditorProps = {
 /**
  * Contains primary UI and controls for all mutations to the lorebook model
  * TODO: Allow resizing width of the three main panels
+ * TODO: Lift editor's lorebook state up to context level, make invisible unless there's an entry (default new lorebook has one entry to start) and apply checks
  */
 const LorebookEditor = (props: LorebookEditorProps) => {
   const { sourceLorebook } = props;
@@ -43,22 +43,22 @@ const LorebookEditor = (props: LorebookEditorProps) => {
 
   // Save lorebook to store when lorebook is updated
   useEffect(() => {
-    store.set(LOREBOOK_KEY, lorebook);
+    storeLorebook(lorebook);
   }, [lorebook]);
 
   return (
     <>
       <Row>
-        <Col xs={4}>
+        <Col md={4}>
           <EntryList
             setCurrentEntryId={setCurrentEntryId}
             currentEntryId={currentEntryId}
           />
         </Col>
-        <Col xs={6}>
+        <Col md={6}>
           {currentEntry && <EntryContentEditor sourceEntry={currentEntry} />}
         </Col>
-        <Col xs={2}>
+        <Col md={2}>
           {currentEntry && <EntrySettingsEditor entry={currentEntry} />}
         </Col>
       </Row>
