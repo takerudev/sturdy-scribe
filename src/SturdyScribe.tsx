@@ -40,44 +40,44 @@ const SturdyScribe = () => {
 
   return (
     <SturdyConfigContextProvider>
-      <Container>
-        <hr />
-        <Row>
-          <h1>
-            <FaBookAtlas /> SturdyScribe (early preview)
-          </h1>
-        </Row>
-        <hr />
-        <Row>
-          <Col xs={4}>
-            <HeaderToolbar lorebook={lorebook} setFiles={setFiles} />
-          </Col>
-        </Row>
-        <Row>
-          {lorebook ? (
-            <LorebookContextProvider initialLorebook={lorebook}>
+      <LorebookContextProvider>
+        <Container>
+          <hr />
+          <Row>
+            <h1>
+              <FaBookAtlas className="mb-1" /> SturdyScribe (early preview)
+            </h1>
+          </Row>
+          <hr />
+          <Row>
+            <Col xs={4}>
+              <HeaderToolbar lorebook={lorebook} setFiles={setFiles} />
+            </Col>
+          </Row>
+          <Row>
+            {lorebook ? (
               <LorebookEditor sourceLorebook={lorebook} />
-            </LorebookContextProvider>
-          ) : (
-            <>
-              <p>Start a new lorebook or import an existing one.</p>
-              <br />
-              {hasStoredLorebook() && (
-                <Col xs={4}>
-                  <ButtonGroup>
-                    <Button
-                      variant="secondary"
-                      onClick={loadLorebookFromStorage}
-                    >
-                      Restore previous session?
-                    </Button>
-                  </ButtonGroup>
-                </Col>
-              )}
-            </>
-          )}
-        </Row>
-      </Container>
+            ) : (
+              <>
+                <p>Start a new lorebook or import an existing one.</p>
+                <br />
+                {hasStoredLorebook() && (
+                  <Col xs={4}>
+                    <ButtonGroup>
+                      <Button
+                        variant="secondary"
+                        onClick={loadLorebookFromStorage}
+                      >
+                        Restore previous session?
+                      </Button>
+                    </ButtonGroup>
+                  </Col>
+                )}
+              </>
+            )}
+          </Row>
+        </Container>
+      </LorebookContextProvider>
     </SturdyConfigContextProvider>
   );
 };

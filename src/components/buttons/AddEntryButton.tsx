@@ -4,13 +4,14 @@ import { FaPlus } from "react-icons/fa6";
 
 import { maxUid } from "../../models/Lorebook";
 import { useLorebookContext } from "../contexts/LorebookContext";
+import { SturdyButtonProps } from "./types";
 
-export type AddEntryButtonProps = {
+export type AddEntryButtonProps = SturdyButtonProps & {
   setCurrentEntryId: Dispatch<SetStateAction<number>>;
 };
 
 const AddEntryButton = (props: AddEntryButtonProps) => {
-  const { setCurrentEntryId } = props;
+  const { setCurrentEntryId, ...buttonProps } = props;
   const { lorebook, dispatch } = useLorebookContext();
 
   const handleAddEntryClick = () => {
@@ -23,8 +24,8 @@ const AddEntryButton = (props: AddEntryButtonProps) => {
   };
 
   return (
-    <Button onClick={handleAddEntryClick} variant="secondary">
-      <FaPlus /> Add Entry
+    <Button {...buttonProps} onClick={handleAddEntryClick} variant="secondary">
+      <FaPlus className="mb-1" /> Add Entry
     </Button>
   );
 };

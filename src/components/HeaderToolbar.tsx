@@ -3,7 +3,9 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 
 import { Lorebook } from "../models/Lorebook";
 import CreateNewLorebookButton from "./buttons/CreateNewLorebookButton";
+import ExportLorebookButton from "./buttons/ExportLorebookButton";
 import ImportLorebookButton from "./buttons/ImportLorebookButton";
+import TitleTypeToggleButton from "./buttons/TitleTypeToggleButton";
 
 export type HeaderToolbarProps = {
   lorebook?: Lorebook;
@@ -24,7 +26,9 @@ const HeaderToolbar = (props: HeaderToolbarProps) => {
         className="me-1"
         safe={!lorebook}
       />
-      <ImportLorebookButton setFiles={setFiles} />
+      <ImportLorebookButton className="me-1" setFiles={setFiles} />
+      <ExportLorebookButton className="me-1" />
+      <TitleTypeToggleButton />
     </ButtonToolbar>
   );
 };

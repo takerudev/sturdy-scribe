@@ -1,6 +1,7 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
 
 import {
+  getSkeletonLorebook,
   Lorebook,
   LorebookAction,
   lorebookReducer,
@@ -17,14 +18,16 @@ const LorebookContext = createContext<{
 
 export type LorebookContextProviderProps = {
   children: React.ReactNode;
-  initialLorebook: Lorebook;
 };
 
 export const LorebookContextProvider = (
   props: LorebookContextProviderProps,
 ) => {
-  const { children, initialLorebook } = props;
-  const [lorebook, dispatch] = useReducer(lorebookReducer, initialLorebook);
+  const { children } = props;
+  const [lorebook, dispatch] = useReducer(
+    lorebookReducer,
+    getSkeletonLorebook(),
+  );
   return (
     <LorebookContext.Provider value={{ lorebook, dispatch }}>
       {children}

@@ -137,3 +137,12 @@ export const maxUid = (lorebook: Lorebook): number => {
       ).uid
     : -1;
 };
+
+export const getSkeletonLorebook = (): Lorebook =>
+  lorebookSchema.cast({
+    entries: {
+      "0": {
+        uid: 0,
+      },
+    },
+  });
