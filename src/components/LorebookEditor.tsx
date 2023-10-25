@@ -17,6 +17,7 @@ export type LorebookEditorProps = {
 /**
  * Contains primary UI and controls for all mutations to the lorebook model
  * TODO: Allow resizing width of the three main panels
+ * TODO: Lift editor's lorebook state up to context level, make invisible unless there's an entry (default new lorebook has one entry to start) and apply checks
  */
 const LorebookEditor = (props: LorebookEditorProps) => {
   const { sourceLorebook } = props;
@@ -48,16 +49,16 @@ const LorebookEditor = (props: LorebookEditorProps) => {
   return (
     <>
       <Row>
-        <Col xs={4}>
+        <Col md={4}>
           <EntryList
             setCurrentEntryId={setCurrentEntryId}
             currentEntryId={currentEntryId}
           />
         </Col>
-        <Col xs={6}>
+        <Col md={6}>
           {currentEntry && <EntryContentEditor sourceEntry={currentEntry} />}
         </Col>
-        <Col xs={2}>
+        <Col md={2}>
           {currentEntry && <EntrySettingsEditor entry={currentEntry} />}
         </Col>
       </Row>

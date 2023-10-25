@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import { FaBookAtlas } from "react-icons/fa6";
 
 import { LorebookContextProvider } from "./components/contexts/LorebookContext";
+import { SturdyConfigContextProvider } from "./components/contexts/SturdyConfigContext";
 import HeaderToolbar from "./components/HeaderToolbar";
 import LorebookEditor from "./components/LorebookEditor";
 import { Lorebook } from "./models/Lorebook";
@@ -38,8 +39,8 @@ const SturdyScribe = () => {
   }, [files, updateLorebook]);
 
   return (
-    <Container>
-      <Col>
+    <SturdyConfigContextProvider>
+      <Container>
         <hr />
         <Row>
           <h1>
@@ -76,8 +77,8 @@ const SturdyScribe = () => {
             </>
           )}
         </Row>
-      </Col>
-    </Container>
+      </Container>
+    </SturdyConfigContextProvider>
   );
 };
 
