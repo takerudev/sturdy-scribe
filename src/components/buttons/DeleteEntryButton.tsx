@@ -6,12 +6,12 @@ import { Entry } from "../../models/Entry";
 import { maxUid } from "../../models/Lorebook";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
-export type DeleteEntryButtonProps = Pick<IconBaseProps, "className"> & {
+export type DeleteEntryButtonProps = IconBaseProps & {
   entry: Entry;
 };
 
 const DeleteEntryButton = (props: DeleteEntryButtonProps) => {
-  const { entry, className } = props;
+  const { entry, ...iconProps } = props;
   const { lorebook, dispatch } = useLorebookContext();
   const [hover, setHover] = useState<boolean>(false);
 
@@ -35,7 +35,7 @@ const DeleteEntryButton = (props: DeleteEntryButtonProps) => {
 
   return (
     <FaTrash
-      className={className}
+      {...iconProps}
       color={hover ? "red" : ""}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

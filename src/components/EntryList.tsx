@@ -7,8 +7,6 @@ import { Entry } from "../models/Entry";
 import { entriesOf } from "../models/Lorebook";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
-import ExportLorebookButton from "./buttons/ExportLorebookButton";
-import TitleTypeToggleButton from "./buttons/TitleTypeToggleButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
 import EntryListItemContainer, {
   EntryListItemProvider,
@@ -31,8 +29,6 @@ const EntryListInner = (props: EntryListProps) => {
   return (
     entries && (
       <div className="d-grid gap-2">
-        <ExportLorebookButton disabled={!lorebook} />
-        <TitleTypeToggleButton />
         <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
           <ListGroup as="ul">

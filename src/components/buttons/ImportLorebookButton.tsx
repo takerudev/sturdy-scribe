@@ -1,13 +1,15 @@
 import { Dispatch, SetStateAction, useRef } from "react";
-import Button, { ButtonProps } from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button";
 import { FaFileImport } from "react-icons/fa6";
 
-export type ImportLorebookButtonProps = Pick<ButtonProps, "className"> & {
+import { SturdyButtonProps } from "./types";
+
+export type ImportLorebookButtonProps = SturdyButtonProps & {
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
 const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
-  const { setFiles } = props;
+  const { setFiles, ...buttonProps } = props;
   const uploadButtonRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +21,7 @@ const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
   return (
     <>
       <Button
+        {...buttonProps}
         variant="secondary"
         onClick={() => uploadButtonRef?.current?.click()}
         aria-label="Import button"

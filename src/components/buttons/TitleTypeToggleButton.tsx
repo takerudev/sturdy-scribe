@@ -2,9 +2,10 @@ import Button from "react-bootstrap/Button";
 import { FaRegRectangleList } from "react-icons/fa6";
 
 import { useConfig } from "../contexts/SturdyConfigContext";
+import { SturdyButtonProps } from "./types";
 
 // TODO: Refactor buttons to use an aliased Omit<ButtonProps, "onClick"> and then destructure args into <Button { ...props } >
-const TitleTypeToggleButton = () => {
+const TitleTypeToggleButton = (props: SturdyButtonProps) => {
   const { config, setConfig } = useConfig();
 
   const handleClick = () => {
@@ -16,8 +17,8 @@ const TitleTypeToggleButton = () => {
   };
 
   return (
-    <Button variant="secondary" onClick={handleClick}>
-      <FaRegRectangleList className="mb-1" /> Toggle Title
+    <Button {...props} variant="secondary" onClick={handleClick}>
+      <FaRegRectangleList />
     </Button>
   );
 };

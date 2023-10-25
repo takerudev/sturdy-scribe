@@ -1,17 +1,18 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import Button, { ButtonProps } from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FaPlus } from "react-icons/fa6";
+import { FaGlobe } from "react-icons/fa6";
 
 import { createEmptyLorebookFile } from "../../services/fileService";
+import { SturdyButtonProps } from "./types";
 
-export type CreateNewLorebookButtonProps = Pick<ButtonProps, "className"> & {
+export type CreateNewLorebookButtonProps = SturdyButtonProps & {
   setFiles: Dispatch<SetStateAction<File[]>>;
   safe: boolean;
 };
 
 const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
-  const { setFiles, safe, className } = props;
+  const { setFiles, safe, ...buttonProps } = props;
   const [show, setShow] = useState(false);
 
   const setNewEmptyFile = () => {
@@ -25,8 +26,8 @@ const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
 
   return (
     <>
-      <Button variant="secondary" className={className} onClick={handleOnClick}>
-        <FaPlus />
+      <Button variant="secondary" {...buttonProps} onClick={handleOnClick}>
+        <FaGlobe />
       </Button>
 
       <Modal show={show} onHide={handleClose}>

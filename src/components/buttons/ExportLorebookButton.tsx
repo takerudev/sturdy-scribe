@@ -1,16 +1,13 @@
-import Button, { ButtonProps } from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button";
 import { FaFileExport } from "react-icons/fa6";
 
 import { saveLorebook } from "../../services/fileService";
 import { useLorebookContext } from "../contexts/LorebookContext";
+import { SturdyButtonProps } from "./types";
 
-export type ExportLorebookButtonProps = Pick<
-  ButtonProps,
-  "className" | "disabled"
->;
+export type ExportLorebookButtonProps = SturdyButtonProps;
 
 const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
-  const { className, disabled } = props;
   const { lorebook } = useLorebookContext();
 
   const handleExportClick = (e: React.MouseEvent) => {
@@ -21,13 +18,12 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
 
   return (
     <Button
+      {...props}
       onClick={handleExportClick}
       variant="secondary"
-      className={className}
-      disabled={disabled}
       aria-label="Export button"
     >
-      <FaFileExport /> Save to file
+      <FaFileExport />
     </Button>
   );
 };
