@@ -26,7 +26,11 @@ const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
 
   return (
     <>
-      <Button variant="secondary" {...buttonProps} onClick={handleOnClick}>
+      <Button
+        variant="outline-secondary"
+        {...buttonProps}
+        onClick={handleOnClick}
+      >
         <FaGlobe />
       </Button>
 

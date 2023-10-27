@@ -1,9 +1,10 @@
-// User config/preferences
-export type SturdyConfig = {
-  titleType: "key" | "comment";
-};
+import { InferType } from "yup";
 
-// TODO: yup schema casting so that we can easily add new config keys in the future
+import { configSchema } from "../services/schemaService";
+
+export type SturdyConfig = InferType<typeof configSchema>;
+
 export const DEFAULT_CONFIG: SturdyConfig = {
   titleType: "key",
+  searchQuery: "",
 };

@@ -1,11 +1,19 @@
 import { Entry, Position, SelectiveLogic } from "../models/Entry";
 import { Lorebook } from "../models/Lorebook";
+import { SturdyConfig } from "../models/SturdyConfig";
 import * as yuki from "../samples/lorebook-samples/YUKIBOOK.json";
-import { lorebookSchema } from "../services/schemaService";
+import { configSchema, lorebookSchema } from "../services/schemaService";
 
 describe("schemaService", () => {
-  it("should cast prototypical lorebook data successfully", () => {
-    lorebookSchema.cast(yuki);
+  it("should cast an empty config correctly", () => {
+    const config: SturdyConfig = configSchema.cast({});
+    expect(config).not.toBeNull();
+    expect(config.searchQuery).toEqual("");
+    expect(config.titleType).toEqual("key");
+  });
+
+  it("should cast prototypical lorebook successfully", () => {
+    expect(lorebookSchema.cast(yuki) as Lorebook).not.toBeNull();
   });
 
   it("should cast and fill in missing lorebook data", () => {
