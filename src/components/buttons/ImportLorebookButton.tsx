@@ -22,7 +22,7 @@ const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
     <>
       <Button
         {...buttonProps}
-        variant="secondary"
+        variant="outline-secondary"
         onClick={() => uploadButtonRef?.current?.click()}
         aria-label="Import button"
       >

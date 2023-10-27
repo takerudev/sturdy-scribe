@@ -20,7 +20,7 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
     <Button
       {...props}
       onClick={handleExportClick}
-      variant="secondary"
+      variant="outline-secondary"
       aria-label="Export button"
     >
       <FaFileExport />

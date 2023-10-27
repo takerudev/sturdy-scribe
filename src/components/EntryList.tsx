@@ -8,6 +8,7 @@ import { entriesOf } from "../models/Lorebook";
 import AddEntryButton from "./buttons/AddEntryButton";
 import DeleteEntryButton from "./buttons/DeleteEntryButton";
 import { useLorebookContext } from "./contexts/LorebookContext";
+import { useConfig } from "./contexts/SturdyConfigContext";
 import EntryListItemContainer, {
   EntryListItemProvider,
 } from "./EntryListItemContainer";
@@ -24,7 +25,20 @@ export type EntryListProps = {
 const EntryListInner = (props: EntryListProps) => {
   const { currentEntryId, setCurrentEntryId } = props;
   const { lorebook } = useLorebookContext();
-  const entries = entriesOf(lorebook);
+  const {
+    config: { searchQuery },
+  } = useConfig();
+
+  const entries = searchQuery.length
+    ? entriesOf(lorebook).filter((entry) =>
+        (
+          entry.content +
+          entry.comment +
+          entry.key.join(",") +
+          entry.keysecondary.join(",")
+        ).includes(searchQuery),
+      )
+    : entriesOf(lorebook);
 
   return (
     entries && (

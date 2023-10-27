@@ -4,7 +4,6 @@ import { FaRegRectangleList } from "react-icons/fa6";
 import { useConfig } from "../contexts/SturdyConfigContext";
 import { SturdyButtonProps } from "./types";
 
-// TODO: Refactor buttons to use an aliased Omit<ButtonProps, "onClick"> and then destructure args into <Button { ...props } >
 const TitleTypeToggleButton = (props: SturdyButtonProps) => {
   const { config, setConfig } = useConfig();
 
@@ -17,7 +16,7 @@ const TitleTypeToggleButton = (props: SturdyButtonProps) => {
   };
 
   return (
-    <Button {...props} variant="secondary" onClick={handleClick}>
+    <Button {...props} variant="outline-secondary" onClick={handleClick}>
       <FaRegRectangleList />
     </Button>
   );

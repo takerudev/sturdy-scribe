@@ -3,7 +3,7 @@ import store from "store2";
 import { CONFIG_KEY, LOREBOOK_KEY } from "../common/constants";
 import { entriesOf, Lorebook } from "../models/Lorebook";
 import { SturdyConfig } from "../models/SturdyConfig";
-import { lorebookSchema } from "./schemaService";
+import { configSchema, lorebookSchema } from "./schemaService";
 
 // --- Lorebook Store ---
 
@@ -34,4 +34,8 @@ export const hasStoredLorebook = (): boolean => {
 export const storeConfig = (config: SturdyConfig) =>
   store.set(CONFIG_KEY, config);
 
-export const getStoredConfig = (): SturdyConfig => store.get(CONFIG_KEY);
+export const getStoredConfig = (): SturdyConfig =>
+  configSchema.cast({
+    ...store.get(CONFIG_KEY),
+    searchQuery: "", // refresh searchQuery on load
+  });
