@@ -40,6 +40,7 @@ const DeleteEntryButton = (props: DeleteEntryButtonProps) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={handleDeleteEntryClick}
+      aria-label="Delete entry"
     />
   );
 };

@@ -24,7 +24,12 @@ const AddEntryButton = (props: AddEntryButtonProps) => {
   };
 
   return (
-    <Button {...buttonProps} onClick={handleAddEntryClick} variant="secondary">
+    <Button
+      {...buttonProps}
+      onClick={handleAddEntryClick}
+      variant="secondary"
+      aria-label="Add entry"
+    >
       <FaPlus className="mb-1" /> Add Entry
     </Button>
   );

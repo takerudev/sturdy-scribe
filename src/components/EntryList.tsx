@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import { FaGrip } from "react-icons/fa6";
@@ -20,7 +20,7 @@ export type EntryListProps = {
 };
 
 /**
- * List of entries, select one to make it active.
+ * List of entries, select one to make it active. Drag and drop to reorder.
  */
 const EntryListInner = (props: EntryListProps) => {
   const { currentEntryId, setCurrentEntryId } = props;
@@ -29,23 +29,36 @@ const EntryListInner = (props: EntryListProps) => {
     config: { searchQuery },
   } = useConfig();
 
-  const entries = searchQuery.length
-    ? entriesOf(lorebook).filter((entry) =>
-        (
-          entry.content +
-          entry.comment +
-          entry.key.join(",") +
-          entry.keysecondary.join(",")
-        ).includes(searchQuery),
-      )
-    : entriesOf(lorebook);
+  const searchHitsText = (entries: Entry[]) =>
+    `Showing ${entries.length} of ${entriesOf(lorebook).length} entries...`;
+
+  // TODO: Add case-sensitive searching to config
+  const searchableTextOf = (entry: Entry) =>
+    (
+      entry.content +
+      entry.comment +
+      entry.key.join(",") +
+      entry.keysecondary.join(",")
+    ).toLocaleLowerCase();
+
+  // Filter entries by searchQuery
+  const entries = useMemo(
+    () =>
+      searchQuery.length
+        ? entriesOf(lorebook).filter((entry) =>
+            searchableTextOf(entry).includes(searchQuery.toLocaleLowerCase()),
+          )
+        : entriesOf(lorebook),
+    [lorebook, searchQuery],
+  );
 
   return (
     entries && (
       <div className="d-grid gap-2">
+        {searchQuery.length > 0 && searchHitsText(entries)}
         <AddEntryButton setCurrentEntryId={setCurrentEntryId} />
         {entries.length > 0 && (
-          <ListGroup as="ul">
+          <ListGroup as="ul" role="list">
             {entries.flatMap((entry: Entry) => (
               <EntryListItemContainer
                 key={entry.uid}
@@ -53,6 +66,7 @@ const EntryListInner = (props: EntryListProps) => {
                 setCurrentEntryId={setCurrentEntryId}
               >
                 <ListGroup.Item
+                  role="listitem"
                   key={entry.uid}
                   active={entry.uid === currentEntryId}
                   onClick={() => setCurrentEntryId(entry.uid)}

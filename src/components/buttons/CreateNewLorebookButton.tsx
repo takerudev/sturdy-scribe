@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { FaGlobe } from "react-icons/fa6";
 
 import { createEmptyLorebookFile } from "../../services/fileService";
@@ -26,13 +28,16 @@ const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
 
   return (
     <>
-      <Button
-        variant="outline-secondary"
-        {...buttonProps}
-        onClick={handleOnClick}
-      >
-        <FaGlobe />
-      </Button>
+      <OverlayTrigger overlay={<Tooltip>New Lorebook</Tooltip>}>
+        <Button
+          {...buttonProps}
+          aria-label="Create lorebook"
+          variant="outline-secondary"
+          onClick={handleOnClick}
+        >
+          <FaGlobe className="mb-1" />
+        </Button>
+      </OverlayTrigger>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>

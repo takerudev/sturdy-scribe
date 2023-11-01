@@ -17,7 +17,6 @@ export type LorebookEditorProps = {
 /**
  * Contains primary UI and controls for all mutations to the lorebook model
  * TODO: Allow resizing width of the three main panels
- * TODO: Lift editor's lorebook state up to context level, make invisible unless there's an entry (default new lorebook has one entry to start) and apply checks
  */
 const LorebookEditor = (props: LorebookEditorProps) => {
   const { sourceLorebook } = props;
