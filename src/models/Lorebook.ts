@@ -142,5 +142,5 @@ export const getSkeletonLorebook = (): Lorebook =>
   });
 
 // Casts an object to a lorebook. Will default to an empty lorebook if not present.
-export const castLorebook = (lorebook: unknown): Lorebook =>
+export const castLorebook = (lorebook: unknown | Lorebook): Lorebook =>
   lorebookSchema.cast(lorebook ?? { entries: {} });

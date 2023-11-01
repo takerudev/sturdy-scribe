@@ -30,8 +30,9 @@ const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
     <>
       <OverlayTrigger overlay={<Tooltip>New Lorebook</Tooltip>}>
         <Button
-          variant="outline-secondary"
           {...buttonProps}
+          aria-label="Create lorebook"
+          variant="outline-secondary"
           onClick={handleOnClick}
         >
           <FaGlobe className="mb-1" />

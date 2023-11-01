@@ -32,7 +32,6 @@ const HeaderToolbar = (props: HeaderToolbarProps) => {
         <TitleTypeToggleButton />
         <Form.Control
           placeholder="Search..."
-          isValid={config.searchQuery.length > 0}
           onChange={(e) =>
             setConfig({
               ...config,
