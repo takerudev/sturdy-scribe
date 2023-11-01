@@ -1,10 +1,6 @@
 import { saveAs } from "file-saver";
 
-import {
-  castLorebook,
-  getSkeletonLorebook,
-  Lorebook,
-} from "../models/Lorebook";
+import { castLorebook, Lorebook } from "../models/Lorebook";
 
 export const saveLorebook = (lorebook: Lorebook) => {
   console.log("SAVING LOREBOOK", lorebook);
