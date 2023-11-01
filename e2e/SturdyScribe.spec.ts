@@ -100,7 +100,7 @@ test.describe("Buttons", () => {
       .getByText(/^Yes, overwrite$/)
       .click();
 
-    await expect(page.getByRole("listitem")).toBeHidden();
+    await expect(page.getByRole("listitem")).toHaveCount(0);
   });
 
   test("can add new entries to an active lorebook", async ({ page }) => {
