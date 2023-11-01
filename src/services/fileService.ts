@@ -1,7 +1,10 @@
 import { saveAs } from "file-saver";
 
-import { Lorebook } from "../models/Lorebook";
-import { lorebookSchema } from "./schemaService";
+import {
+  castLorebook,
+  getSkeletonLorebook,
+  Lorebook,
+} from "../models/Lorebook";
 
 export const saveLorebook = (lorebook: Lorebook) => {
   console.log("SAVING LOREBOOK", lorebook);
@@ -13,6 +16,6 @@ export const saveLorebook = (lorebook: Lorebook) => {
 
 export const createEmptyLorebookFile = () =>
   new File(
-    [JSON.stringify(lorebookSchema.cast({ entries: {} }))],
+    [JSON.stringify(castLorebook(undefined))],
     "SturdyScribe_lorebook.json",
   );
