@@ -1,18 +1,18 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
 
 import {
+  castLorebook,
   getSkeletonLorebook,
   Lorebook,
   LorebookAction,
   lorebookReducer,
 } from "../../models/Lorebook";
-import { lorebookSchema } from "../../services/schemaService";
 
 const LorebookContext = createContext<{
   lorebook: Lorebook;
   dispatch: Dispatch<LorebookAction>;
 }>({
-  lorebook: lorebookSchema.cast({ entries: {} }),
+  lorebook: castLorebook(undefined),
   dispatch: () => null,
 });
 

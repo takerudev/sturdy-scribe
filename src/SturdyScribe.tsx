@@ -10,8 +10,7 @@ import { LorebookContextProvider } from "./components/contexts/LorebookContext";
 import { SturdyConfigContextProvider } from "./components/contexts/SturdyConfigContext";
 import HeaderToolbar from "./components/HeaderToolbar";
 import LorebookEditor from "./components/LorebookEditor";
-import { Lorebook } from "./models/Lorebook";
-import { lorebookSchema } from "./services/schemaService";
+import { castLorebook, Lorebook } from "./models/Lorebook";
 import { getStoredLorebook, hasStoredLorebook } from "./services/storeService";
 
 const SturdyScribe = () => {
@@ -22,7 +21,7 @@ const SturdyScribe = () => {
     async (file: File) => {
       console.log("Files updated. Updating lorebook...", files);
       const rawLorebook = JSON.parse(await file.text());
-      const validated: Lorebook = lorebookSchema.cast(rawLorebook);
+      const validated = castLorebook(rawLorebook);
       setLorebook(validated);
     },
     [files],

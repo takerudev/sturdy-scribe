@@ -3,9 +3,6 @@ import { InferType } from "yup";
 import { entrySchema, lorebookSchema } from "../services/schemaService";
 import { Entry, EntryAttributeValue } from "./Entry";
 
-// TODO: expand local Lorebook type def
-// TODO: wrap schema casting
-// TODO: test prototype book is equivalent to local Lorebook type
 export type Lorebook = InferType<typeof lorebookSchema>;
 
 export type LorebookAction =
@@ -43,10 +40,6 @@ export type SetLorebookAction = {
   lorebook: Lorebook;
 };
 
-/**
- * TODO: Add unit tests
- * TODO: Add Error types
- */
 export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
   switch (action.type) {
     case "updateEntry":
@@ -138,11 +131,16 @@ export const maxUid = (lorebook: Lorebook): number => {
     : -1;
 };
 
+// Creates a basic valid lorebook with a single empty entry.
 export const getSkeletonLorebook = (): Lorebook =>
-  lorebookSchema.cast({
+  castLorebook({
     entries: {
       "0": {
         uid: 0,
       },
     },
   });
+
+// Casts an object to a lorebook. Will default to an empty lorebook if not present.
+export const castLorebook = (lorebook: unknown): Lorebook =>
+  lorebookSchema.cast(lorebook ?? { entries: {} });

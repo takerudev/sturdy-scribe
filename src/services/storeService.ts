@@ -1,33 +1,20 @@
 import store from "store2";
 
 import { CONFIG_KEY, LOREBOOK_KEY } from "../common/constants";
-import { entriesOf, Lorebook } from "../models/Lorebook";
+import { castLorebook, entriesOf, Lorebook } from "../models/Lorebook";
 import { SturdyConfig } from "../models/SturdyConfig";
-import { configSchema, lorebookSchema } from "./schemaService";
+import { configSchema } from "./schemaService";
 
 // --- Lorebook Store ---
 
 export const storeLorebook = (lorebook: Lorebook) =>
   store.set(LOREBOOK_KEY, lorebook);
 
-// TODO: consider decoupling from filling-in-by-default behaviour by making return type optional
 export const getStoredLorebook = (): Lorebook =>
-  lorebookSchema.cast(store.get(LOREBOOK_KEY) ?? { entries: [] });
+  castLorebook(store.get(LOREBOOK_KEY));
 
-// Checks if there a lorebook in storage
-// TODO: Check if try-catch is even needed
-export const hasStoredLorebook = (): boolean => {
-  try {
-    if (store.has(LOREBOOK_KEY)) {
-      const storedData = store.get(LOREBOOK_KEY);
-      const storedLorebook = lorebookSchema.cast(storedData);
-      return entriesOf(storedLorebook).length > 0;
-    }
-  } catch (e) {
-    console.error(e);
-  }
-  return false;
-};
+export const hasStoredLorebook = (): boolean =>
+  entriesOf(getStoredLorebook()).length > 0;
 
 // --- Config Store ---
 
@@ -36,6 +23,6 @@ export const storeConfig = (config: SturdyConfig) =>
 
 export const getStoredConfig = (): SturdyConfig =>
   configSchema.cast({
-    ...store.get(CONFIG_KEY),
+    ...(store.get(CONFIG_KEY) ?? {}),
     searchQuery: "", // refresh searchQuery on load
   });
