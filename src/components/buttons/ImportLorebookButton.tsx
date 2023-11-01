@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useRef } from "react";
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { FaFileImport } from "react-icons/fa6";
 
 import { SturdyButtonProps } from "./types";
@@ -20,14 +22,16 @@ const ImportLorebookButton = (props: ImportLorebookButtonProps) => {
 
   return (
     <>
-      <Button
-        {...buttonProps}
-        variant="outline-secondary"
-        onClick={() => uploadButtonRef?.current?.click()}
-        aria-label="Import button"
-      >
-        <FaFileImport />
-      </Button>
+      <OverlayTrigger overlay={<Tooltip>Import Lorebook</Tooltip>}>
+        <Button
+          {...buttonProps}
+          variant="outline-secondary"
+          onClick={() => uploadButtonRef?.current?.click()}
+          aria-label="Import button"
+        >
+          <FaFileImport className="mb-1" />
+        </Button>
+      </OverlayTrigger>
 
       {/* Sekrit input to get file safely */}
       <input

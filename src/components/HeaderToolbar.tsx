@@ -31,6 +31,8 @@ const HeaderToolbar = (props: HeaderToolbarProps) => {
         <ExportLorebookButton />
         <TitleTypeToggleButton />
         <Form.Control
+          placeholder="Search..."
+          isValid={config.searchQuery.length > 0}
           onChange={(e) =>
             setConfig({
               ...config,

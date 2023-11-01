@@ -1,4 +1,6 @@
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { FaFileExport } from "react-icons/fa6";
 
 import { saveLorebook } from "../../services/fileService";
@@ -17,14 +19,16 @@ const ExportLorebookButton = (props: ExportLorebookButtonProps) => {
   };
 
   return (
-    <Button
-      {...props}
-      onClick={handleExportClick}
-      variant="outline-secondary"
-      aria-label="Export button"
-    >
-      <FaFileExport />
-    </Button>
+    <OverlayTrigger overlay={<Tooltip>Export Lorebook</Tooltip>}>
+      <Button
+        {...props}
+        onClick={handleExportClick}
+        variant="outline-secondary"
+        aria-label="Export button"
+      >
+        <FaFileExport className="mb-1" />
+      </Button>
+    </OverlayTrigger>
   );
 };
 
