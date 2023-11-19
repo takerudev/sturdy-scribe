@@ -1,10 +1,6 @@
 import store from "store2";
 
-import {
-  castLorebook,
-  getSkeletonLorebook,
-  Lorebook,
-} from "../models/Lorebook";
+import { castLorebook, Lorebook } from "../models/Lorebook";
 import { SturdyConfig } from "../models/SturdyConfig";
 import { getStoredConfig, hasStoredLorebook } from "./storeService";
 
@@ -39,7 +35,7 @@ describe("config store", () => {
 describe("lorebook store", () => {
   describe("hasStoredLorebook", () => {
     it("should return true when lorebook in storage has at least one entry", () => {
-      setupStore(getSkeletonLorebook());
+      setupStore(castLorebook({ entries: { 0: { uid: 0 } } }));
       const result = hasStoredLorebook();
       expect(result).toBeTruthy();
     });

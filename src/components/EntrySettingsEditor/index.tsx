@@ -29,12 +29,14 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
         keyType="key"
         entry={localEntry}
         setEntry={setLocalEntry}
+        className="mb-3"
       />
-      <InputSelectiveLogicControl entry={localEntry} />
+      <InputSelectiveLogicControl entry={localEntry} className="mb-3" />
       <InputKeyControl
         keyType="keysecondary"
         entry={localEntry}
         setEntry={setLocalEntry}
+        className="mb-3"
       />
       <InputInsertionControl entry={localEntry} />
       <hr />

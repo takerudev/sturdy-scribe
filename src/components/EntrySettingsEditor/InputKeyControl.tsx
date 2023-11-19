@@ -1,10 +1,11 @@
 import { Dispatch } from "react";
 import Form from "react-bootstrap/Form";
+import { FormGroupProps } from "react-bootstrap/FormGroup";
 
 import { Entry } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
-export type InputKeyControlProps = {
+export type InputKeyControlProps = FormGroupProps & {
   keyType: keyof Pick<Entry, "key" | "keysecondary">;
   entry: Entry;
   setEntry: Dispatch<React.SetStateAction<Entry>>;
@@ -18,12 +19,12 @@ const transformKey = (raw: string): string[] =>
  * TODO: Add key tag handling system
  */
 const InputKeyControl = (props: InputKeyControlProps) => {
-  const { keyType, entry, setEntry } = props;
+  const { keyType, entry, setEntry, ...formGroupProps } = props;
   const { dispatch } = useLorebookContext();
   const label = keyType === "key" ? "Keys" : "Secondary Keys";
 
   return (
-    <Form.Group className="mt-3">
+    <Form.Group {...formGroupProps}>
       <Form.Label>{label}</Form.Label>
       <Form.Control
         as="textarea"

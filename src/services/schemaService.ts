@@ -89,4 +89,5 @@ export const lorebookSchema = object({
       Object.fromEntries(Object.keys(details).map((key) => [key, entrySchema])),
     ),
   ),
+  filename: string(),
 });

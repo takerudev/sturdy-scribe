@@ -1,9 +1,10 @@
 import Form from "react-bootstrap/Form";
+import { FormGroupProps } from "react-bootstrap/FormGroup";
 
 import { Entry, Position } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
-export type InputInsertionControlProps = {
+export type InputInsertionControlProps = FormGroupProps & {
   entry: Entry;
 };
 
@@ -11,10 +12,10 @@ export type InputInsertionControlProps = {
  * Handles different insertion types, i.e. Insertion Position.
  */
 const InputInsertionControl = (props: InputInsertionControlProps) => {
-  const { entry } = props;
+  const { entry, ...formGroupProps } = props;
   const { dispatch } = useLorebookContext();
   return (
-    <Form.Group className="mt-3">
+    <Form.Group {...formGroupProps}>
       <Form.Label>Insertion Position</Form.Label>
       <Form.Select
         value={entry.position.toString()}

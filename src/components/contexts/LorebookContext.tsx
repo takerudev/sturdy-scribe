@@ -2,7 +2,6 @@ import { createContext, Dispatch, useContext, useReducer } from "react";
 
 import {
   castLorebook,
-  getSkeletonLorebook,
   Lorebook,
   LorebookAction,
   lorebookReducer,
@@ -26,7 +25,7 @@ export const LorebookContextProvider = (
   const { children } = props;
   const [lorebook, dispatch] = useReducer(
     lorebookReducer,
-    getSkeletonLorebook(),
+    castLorebook(undefined),
   );
   return (
     <LorebookContext.Provider value={{ lorebook, dispatch }}>

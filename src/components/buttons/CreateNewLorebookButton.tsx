@@ -5,16 +5,18 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { FaGlobe } from "react-icons/fa6";
 
+import { entriesOf } from "../../models/Lorebook";
 import { createEmptyLorebookFile } from "../../services/fileService";
+import { useLorebookContext } from "../contexts/LorebookContext";
 import { SturdyButtonProps } from "./types";
 
 export type CreateNewLorebookButtonProps = SturdyButtonProps & {
   setFiles: Dispatch<SetStateAction<File[]>>;
-  safe: boolean;
 };
 
 const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
-  const { setFiles, safe, ...buttonProps } = props;
+  const { setFiles, ...buttonProps } = props;
+  const { lorebook } = useLorebookContext();
   const [show, setShow] = useState(false);
 
   const setNewEmptyFile = () => {
@@ -24,7 +26,8 @@ const CreateNewLorebookButton = (props: CreateNewLorebookButtonProps) => {
 
   const handleClose = () => setShow(false);
 
-  const handleOnClick = () => (!safe ? setShow(true) : setNewEmptyFile());
+  const handleOnClick = () =>
+    entriesOf(lorebook).length > 0 ? setShow(true) : setNewEmptyFile();
 
   return (
     <>

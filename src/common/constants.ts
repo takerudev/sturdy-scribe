@@ -1,3 +1,5 @@
+export const DEFAULT_FILENAME = "new_lorebook.json";
+
 // Keys used in localStorage.
 // WARNING: If these are changed, all users will have their data reset!
 

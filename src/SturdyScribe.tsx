@@ -22,6 +22,7 @@ const SturdyScribe = () => {
       console.log("Files updated. Updating lorebook...", files);
       const rawLorebook = JSON.parse(await file.text());
       const validated = castLorebook(rawLorebook);
+      validated.filename = file.name;
       setLorebook(validated);
     },
     [files],
@@ -49,19 +50,18 @@ const SturdyScribe = () => {
           </Row>
           <hr />
           <Row>
-            <Col xs={4}>
-              <HeaderToolbar lorebook={lorebook} setFiles={setFiles} />
-            </Col>
-          </Row>
-          <Row>
             {lorebook ? (
-              <LorebookEditor sourceLorebook={lorebook} />
+              <LorebookEditor sourceLorebook={lorebook} setFiles={setFiles} />
             ) : (
               <>
-                <p>Start a new lorebook or import an existing one.</p>
-                <br />
+                <Col md={4}>
+                  <HeaderToolbar
+                    sourceLorebook={lorebook}
+                    setFiles={setFiles}
+                  />
+                </Col>
                 {hasStoredLorebook() && (
-                  <Col xs={4}>
+                  <Col>
                     <ButtonGroup>
                       <Button
                         variant="secondary"
@@ -72,6 +72,7 @@ const SturdyScribe = () => {
                     </ButtonGroup>
                   </Col>
                 )}
+                <p>Start a new lorebook or import an existing one.</p>
               </>
             )}
           </Row>

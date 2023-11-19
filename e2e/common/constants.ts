@@ -1,3 +1,4 @@
-// Filepath to a basic lorebook with a range of entry settings
+// A basic lorebook with a range of entry settings
+export const DELTA_LOREBOOK_FILENAME = "delta_lorebook.json";
 export const DELTA_LOREBOOK_FILEPATH =
-  "../../src/samples/lorebook-samples/delta_lorebook.json";
+  "../../src/samples/lorebook-samples/" + DELTA_LOREBOOK_FILENAME;

@@ -1,11 +1,14 @@
 import { expect, Page, test } from "@playwright/test";
 
+import { DEFAULT_FILENAME } from "../src/common/constants";
 import { Position } from "../src/models/Entry";
 import { Lorebook } from "../src/models/Lorebook";
 import { lorebookSchema } from "../src/services/schemaService";
+import { DELTA_LOREBOOK_FILENAME } from "./common/constants";
 import {
   downloadLorebook,
   getDeltaLorebook,
+  handleDownloadedFile,
   uploadLorebook,
 } from "./common/helpers";
 
@@ -84,6 +87,9 @@ test.describe("Buttons", () => {
     await page.getByLabel(/^Create lorebook$/).click();
 
     await expect(page.getByLabel(/^Add entry$/)).toBeVisible();
+    await expect(page.getByLabel(/^filename input$/)).toHaveValue(
+      DEFAULT_FILENAME,
+    );
   });
 
   test("will warn user if overwriting an active lorebook", async ({ page }) => {
@@ -129,11 +135,13 @@ test.describe("Buttons", () => {
     await page.goto("/");
     await uploadLorebook(page);
 
-    const rawResultLorebook = await downloadLorebook(page);
-    const resultLorebook: Lorebook = lorebookSchema.cast(rawResultLorebook);
+    const lorebookDownload = await downloadLorebook(page);
+    const rawLorebookData = await handleDownloadedFile(lorebookDownload);
+    const resultLorebook: Lorebook = lorebookSchema.cast(rawLorebookData);
 
     const rawExpectedLorebook = getDeltaLorebook();
     const expectedLorebook: Lorebook = lorebookSchema.cast(rawExpectedLorebook);
     expect(resultLorebook).toEqual(expectedLorebook);
+    expect(lorebookDownload.suggestedFilename()).toBe(DELTA_LOREBOOK_FILENAME);
   });
 });

@@ -11,22 +11,18 @@ import TitleTypeToggleButton from "./buttons/TitleTypeToggleButton";
 import { useConfig } from "./contexts/SturdyConfigContext";
 
 export type HeaderToolbarProps = {
-  lorebook?: Lorebook;
+  sourceLorebook: Lorebook | undefined;
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
-/**
- * Header containing some buttons relating to lorebook control.
- * TODO: Add hover text to buttons
- */
 const HeaderToolbar = (props: HeaderToolbarProps) => {
-  const { lorebook, setFiles } = props;
+  const { setFiles } = props;
   const { config, setConfig } = useConfig();
 
   return (
-    <ButtonToolbar className="mb-2 mt-2">
+    <ButtonToolbar className="mb-2">
       <InputGroup>
-        <CreateNewLorebookButton setFiles={setFiles} safe={!lorebook} />
+        <CreateNewLorebookButton setFiles={setFiles} />
         <ImportLorebookButton setFiles={setFiles} />
         <ExportLorebookButton />
         <TitleTypeToggleButton />
