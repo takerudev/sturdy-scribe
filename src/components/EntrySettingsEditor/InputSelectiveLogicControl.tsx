@@ -1,11 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { FormGroupProps } from "react-bootstrap/FormGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import { Entry, SelectiveLogic } from "../../models/Entry";
 import { useLorebookContext } from "../contexts/LorebookContext";
 
-export type InputSelectiveLogicControlProps = {
+export type InputSelectiveLogicControlProps = FormGroupProps & {
   entry: Entry;
 };
 
@@ -13,10 +14,10 @@ export type InputSelectiveLogicControlProps = {
  * Handles the two different selection types for the secondary key, i.e. AND/NOT
  */
 const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
-  const { entry } = props;
+  const { entry, ...formGroupProps } = props;
   const { dispatch } = useLorebookContext();
   return (
-    <div className="mt-3">
+    <Form.Group {...formGroupProps}>
       <Form.Label>Selective Logic</Form.Label>
       <InputGroup>
         {[SelectiveLogic.AND, SelectiveLogic.NOT].flatMap((logic) => (
@@ -38,7 +39,7 @@ const InputSelectiveLogicControl = (props: InputSelectiveLogicControlProps) => {
           </Button>
         ))}
       </InputGroup>
-    </div>
+    </Form.Group>
   );
 };
 

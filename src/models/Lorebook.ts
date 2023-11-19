@@ -10,7 +10,8 @@ export type LorebookAction =
   | SwapEntryAction
   | NewEntryAction
   | DeleteEntryAction
-  | SetLorebookAction;
+  | SetLorebookAction
+  | SetFilenameAction;
 
 export type UpdateEntryAction = {
   type: "updateEntry";
@@ -38,6 +39,11 @@ export type DeleteEntryAction = {
 export type SetLorebookAction = {
   type: "setLorebook";
   lorebook: Lorebook;
+};
+
+export type SetFilenameAction = {
+  type: "setFilename";
+  filename: string;
 };
 
 export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
@@ -104,6 +110,9 @@ export const lorebookReducer = (state: Lorebook, action: LorebookAction) => {
     case "setLorebook":
       return { ...action.lorebook };
 
+    case "setFilename":
+      return { ...state, filename: action.filename };
+
     default:
       throw new Error("Unhandled action type");
   }
@@ -130,16 +139,6 @@ export const maxUid = (lorebook: Lorebook): number => {
       ).uid
     : -1;
 };
-
-// Creates a basic valid lorebook with a single empty entry.
-export const getSkeletonLorebook = (): Lorebook =>
-  castLorebook({
-    entries: {
-      "0": {
-        uid: 0,
-      },
-    },
-  });
 
 // Casts an object to a lorebook. Will default to an empty lorebook if not present.
 export const castLorebook = (lorebook: unknown | Lorebook): Lorebook =>

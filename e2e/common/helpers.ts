@@ -14,16 +14,20 @@ export const uploadLorebook = async (page: Page) => {
   await page.getByLabel(/^Import button$/).click();
 };
 
-export const downloadLorebook = async (page: Page): Promise<object> => {
-  const downloadPromise = new Promise<object>(async (resolve) => {
-    page.on("download", async (download: Download) => {
-      const readStream = await download.createReadStream();
-      const downloadBuffer = await streamToPromise(readStream!);
-      resolve(JSON.parse(downloadBuffer.toString()));
-    });
-  });
+export const downloadLorebook = async (page: Page): Promise<Download> => {
+  const downloadPromise = new Promise<Download>(async (resolve) =>
+    page.on("download", resolve),
+  );
   await page.getByLabel(/^Export button$/).click();
   return downloadPromise;
+};
+
+export const handleDownloadedFile = async (
+  download: Download,
+): Promise<object> => {
+  const readStream = await download.createReadStream();
+  const downloadBuffer = await streamToPromise(readStream!);
+  return JSON.parse(downloadBuffer.toString());
 };
 
 export const getDeltaLorebook = () =>
