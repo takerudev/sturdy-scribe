@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sturdy-scribe/static/css/main.eefc237f.css",
-    "main.js": "/sturdy-scribe/static/js/main.9b2bf1f2.js",
-    "static/js/787.f8178f72.chunk.js": "/sturdy-scribe/static/js/787.f8178f72.chunk.js",
+    "main.css": "/sturdy-scribe/static/css/main.241951ba.css",
+    "main.js": "/sturdy-scribe/static/js/main.7c774686.js",
+    "static/js/787.7d27509b.chunk.js": "/sturdy-scribe/static/js/787.7d27509b.chunk.js",
     "index.html": "/sturdy-scribe/index.html",
-    "main.eefc237f.css.map": "/sturdy-scribe/static/css/main.eefc237f.css.map",
-    "main.9b2bf1f2.js.map": "/sturdy-scribe/static/js/main.9b2bf1f2.js.map",
-    "787.f8178f72.chunk.js.map": "/sturdy-scribe/static/js/787.f8178f72.chunk.js.map"
+    "main.241951ba.css.map": "/sturdy-scribe/static/css/main.241951ba.css.map",
+    "main.7c774686.js.map": "/sturdy-scribe/static/js/main.7c774686.js.map",
+    "787.7d27509b.chunk.js.map": "/sturdy-scribe/static/js/787.7d27509b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eefc237f.css",
-    "static/js/main.9b2bf1f2.js"
+    "static/css/main.241951ba.css",
+    "static/js/main.7c774686.js"
   ]
 }
