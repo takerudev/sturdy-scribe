@@ -4,6 +4,7 @@ import { Entry } from "../../models/Entry";
 import InputBooleanControlGroup from "./InputBooleanControlGroup";
 import InputInsertionControl from "./InputInsertionControl";
 import InputKeyControl from "./InputKeyControl";
+import InputOrderControl from "./InputOrderControl";
 import InputProbabilityControl from "./InputProbabilityControl";
 import InputSelectiveLogicControl from "./InputSelectiveLogicControl";
 
@@ -43,6 +44,7 @@ const EntrySettingsEditor = (props: EntrySettingsEditorProps) => {
       <InputBooleanControlGroup entry={localEntry} />
       <hr />
       <InputProbabilityControl entry={localEntry} setEntry={setLocalEntry} />
+      <InputOrderControl entry={localEntry} setEntry={setLocalEntry} />
     </div>
   );
 };
